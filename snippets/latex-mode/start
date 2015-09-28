@@ -1,0 +1,16 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: start
+# key: start
+# binding: direct-keybinding
+# --
+\documentclass[a4paper,12pt]{article}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+
+\title{$1}
+\author{Nicholas Palermo}
+\date{$2}
+\begin{document}
+   \maketitle
+   $0
+\end{document}

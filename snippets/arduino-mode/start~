@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: start
+# key: start
+# binding: direct-keybinding
+# --
+void setup() {
+ $0 
+}
+
+void loop() {
+  
+}

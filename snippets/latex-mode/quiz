@@ -1,0 +1,79 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: quiz
+# key: quiz
+# binding: direct-keybinding
+# --
+\documentclass[12pt,epsfig]{article}
+
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=6.3in
+\topmargin=-0.5in
+\textheight=9in
+
+\parindent=0in
+\pagestyle{empty}
+
+
+
+\begin{document}
+
+
+%%%(change to appropriate class and semester)
+Qbic Gen Bio I, Fall 2015 
+
+%%%(change to appropriate quiz type and date)
+Lab Quiz $1 \hfill {Name:} {\underline {\hspace{2.5in}}}
+
+%%%(modify rules, time, points as appropriate)
+\begin{enumerate}
+
+\item  %0 
+\textit{(10~points)}
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc} 
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc} 
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc} 
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+\item 
+\textit{(10~points)} 
+\vspace{2pc}
+
+
+\end{enumerate}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

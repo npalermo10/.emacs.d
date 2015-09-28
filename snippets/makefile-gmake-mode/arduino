@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: arduino
+# key: arduino
+# binding: direct-keybinding
+# --
+include /usr/share/arduino/Arduino.mk
+
+MONITOR_PORT = /dev/ttyACM0

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: bib
+# key: bib
+# binding: direct-keybinding
+# --
+\bibliographystyle{plain}
+\bibliography{/home/nick/my_zotero}

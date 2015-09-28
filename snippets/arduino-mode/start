@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: start
+# key: start
+# binding: direct-keybinding
+# --
+$0
+
+void setup() {
+ Serial.begin(9600);
+  
+}
+
+void loop() {
+  
+}
