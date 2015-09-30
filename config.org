@@ -250,9 +250,13 @@ These things have to take the form:
 ;;tab key fix
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
+(use-package smartparens
+:ensure t
+:config 
 (smartparens-global-mode 1)
+)
 
-(add-hook 'after-init-hook 'global-flycheck-mode)
+;(add-hook 'after-init-hook 'global-flycheck-mode)
 #+END_SRC
 
 * Python
@@ -365,8 +369,13 @@ These things have to take the form:
 #+END_SRC
 * themes
 #+BEGIN_SRC emacs-lisp
+
+(use-package zenburn-theme
+:ensure t
+:config
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
+)
 #+END_SRC
 * custom
 #+BEGIN_SRC emacs-lisp
@@ -409,27 +418,31 @@ These things have to take the form:
 #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
-;;; auto complete mod
-;;; should be loaded after yasnippet so that they can work together
-(use-package auto-complete-config
-:config
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default))
 
 
 (use-package yasnippet
 :ensure t
 :config
 (yas-global-mode 1)
-
 (define-key yas-minor-mode-map [(tab)] nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-x C-y") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "C-x C-y") 'yas-expand))
+
+;;; auto complete mod
+;;; should be loaded after yasnippet so that they can work together
+(use-package auto-complete-config
+:config
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+)
+
+
+
 ;;; set the trigger key so that it can work together with yasnippet on tab key,
 ;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
 ;;; activate, otherwise, auto-complete will
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>"))
 #+END_SRC
 * erc
 # #+BEGIN_SRC emacs-lisp
