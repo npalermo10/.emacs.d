@@ -12,8 +12,8 @@
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(erc-nick "synthstutter")
- '(erc-nickserv-passwords (quote ((freenode (("synthstutter" . "z%850tmd"))))))
- '(erc-prompt-for-nickserv-password nil)
+
+
  '(fci-rule-color "#383838")
  '(org-capture-templates
    (quote
