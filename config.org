@@ -400,10 +400,10 @@ These things have to take the form:
 * latex stuff
 ** auctex
 #+BEGIN_SRC emacs-lisp
-(load "auctex.el" nil t t)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
+;;(load "auctex.el" nil t t)
+;;(setq TeX-auto-save t)
+;;(setq TeX-parse-self t)
+;;(setq-default TeX-master nil)
 #+END_SRC
 ** reftex
 #+BEGIN_SRC emacs-lisp
