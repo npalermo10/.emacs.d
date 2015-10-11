@@ -1,3 +1,5 @@
+My own personal emacs config
+- Remember to use "<s tab" then use "emacs-lisp" to create source blocks 
 * my own navigation/kill/yank/insert/etc. functions
 #+BEGIN_SRC emacs-lisp
 ;; functions
@@ -123,11 +125,11 @@
 #+END_SRC
 ** Copy, Cut, Paste, Undo
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-s--") 'copy-region-as-kill)
-(global-set-key (kbd "C-=") 'yank)
-(local-set-key (kbd "C-s-=") 'yank-pop)
-(global-set-key (kbd "C--") 'kill-line-or-region)
-(global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-s--") 'copy-region-as-kill)
+  (global-set-key (kbd "C-=") 'yank)
+  ;; (global-set-key (kbd "C-s-=") 'yank-pop)
+  (global-set-key (kbd "C--") 'kill-line-or-region)
+  (global-set-key (kbd "C-z") 'undo)
 #+END_SRC
 ** Keyboard quit
 #+BEGIN_SRC emacs-lisp
@@ -160,6 +162,13 @@
 (define-key my-keys-minor-mode-map (kbd "C-k") 'next-line)
 (define-key my-keys-minor-mode-map (kbd "C-l") 'forward-char)
 (define-key my-keys-minor-mode-map (kbd "C-j") 'backward-char)
+
+(define-key my-keys-minor-mode-map (kbd "C-x C-l") 'end-of-line)
+(define-key my-keys-minor-mode-map (kbd "C-x C-j") 'beginning-of-line)
+(define-key my-keys-minor-mode-map (kbd "C-x C-k") 'end-of-buffer)
+(define-key my-keys-minor-mode-map (kbd "C-x C-i") 'beginning-of-buffer)
+
+
 (define-key my-keys-minor-mode-map (kbd "C-S-i") 'scroll-down)
 (define-key my-keys-minor-mode-map (kbd "C-S-k") 'scroll-up)
 (define-key my-keys-minor-mode-map (kbd "C-S-i") 'backward-paragraph)
@@ -173,7 +182,7 @@
 (define-key my-keys-minor-mode-map (kbd "C-x C-o") 'delete-window)
 
 (define-key my-keys-minor-mode-map (kbd "C-b") 'switch-to-next-buffer)
-(define-key my-keys-minor-mode-map (kbd "C-x C-b") 'switch-to-buffer)
+;;(define-key my-keys-minor-mode-map (kbd "C-x C-b") 'switch-to-buffer)
 
 ;;killing
 (define-key my-keys-minor-mode-map (kbd "M-i") 'backward-kill-line)
@@ -188,7 +197,7 @@
 ;; copy,cut,paste,undo
 (define-key my-keys-minor-mode-map (kbd "C-s--") 'copy-region-as-kill)
 (define-key my-keys-minor-mode-map (kbd "C-=") 'yank)
-(define-key my-keys-minor-mode-map (kbd "C-s-=") 'yank-pop)
+;;(define-key my-keys-minor-mode-map (kbd "C-s-=") 'yank-pop)
 (define-key my-keys-minor-mode-map (kbd "C--") 'kill-line-or-region)
 (define-key my-keys-minor-mode-map (kbd "C-z") 'undo)
 
@@ -224,11 +233,33 @@ These things have to take the form:
   (my-keys-minor-mode 0))
 (add-hook 'erc-mode-hook 'my-erc-setup-hook)
 #+END_SRC
-* EMACS appearece menu,toolbar,scrollbar
+* Emacs appearece menu,toolbar,scrollbar
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1) 
-(toggle-scroll-bar -1) 
-(tool-bar-mode -1)
+  (menu-bar-mode -1) 
+  (toggle-scroll-bar -1) 
+  (tool-bar-mode -1)
+  (show-paren-mode t)
+
+  ;; fring indicators
+  (setq indicate-empty-lines t)
+    (setq indicate-buffer-boundaries 'left)
+    (setq fringe-indicator-alist '(
+      (truncation . (left-arrow right-arrow))
+      (continuation . (left-curly-arrow backslash)) ;; right-curly-arrow
+      (overlay-arrow . right-triangle)
+      (up . up-arrow)
+      (down . down-arrow)
+      (top . (top-left-angle top-right-angle))
+      (bottom . (bottom-left-angle bottom-right-angle top-right-angle top-left-angle))
+      (top-bottom . (left-bracket right-bracket top-right-angle top-left-angle))
+      (empty-line . empty-line)
+      (unknown . question-mark)))
+    (setq fringe-cursor-alist '(
+      (box . left-triangle)
+      (hollow . right-triangle)
+      (bar . left-triangle)
+      (hbar . horizontal-bar)
+      (hollow-small . hollow-square)))
 #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
@@ -352,6 +383,11 @@ These things have to take the form:
 (transient-mark-mode nil)               ;; No region when it is not highlighted
 ;; (setq cua-keep-region-after-copy t) 
 )
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
 #+END_SRC
 ** my-org-functions
 #+BEGIN_SRC emacs-lisp
@@ -383,16 +419,6 @@ These things have to take the form:
 (load custom-file)
 #+END_SRC
 
-* key chord
-#+BEGIN_SRC emacs-lisp
-(use-package key-chord
-:ensure t
-:config
-(key-chord-mode 1)
-(key-chord-define-global "o0" 'find-file)
-(key-chord-define-global "w2" 'ipython)
-)
-#+END_SRC
 * Arduino mode
 #+BEGIN_SRC emacs-lisp
 (use-package arduino-mode)
@@ -455,8 +481,33 @@ These things have to take the form:
 (erc-services-mode 1)
 )
 #+END_SRC
+<<<<<<< HEAD
 * Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
 :ensure t)
+>>>>>>> af2a843f54a0bcdba8cc883577fc8d38f2aaeec7
 #+END_SRC
+* helm
+#+BEGIN_SRC emacs-lisp
+(use-package helm
+:ensure t
+:config
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(helm-mode 1)
+(global-set-key (kbd "C-s-=") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x C-b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+)
+#+END_SRC
+* key chord
+#+BEGIN_SRC emacs-lisp
+(use-package key-chord
+:ensure t
+:config
+(key-chord-mode 1)
+(key-chord-define-global "o0" 'helm-find-files)
+(key-chord-define-global "w2" 'ipython)
+)
+=======
