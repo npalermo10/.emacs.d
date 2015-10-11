@@ -486,7 +486,7 @@ These things have to take the form:
 #+BEGIN_SRC emacs-lisp
 (use-package magit
 :ensure t)
->>>>>>> af2a843f54a0bcdba8cc883577fc8d38f2aaeec7
+)
 #+END_SRC
 * helm
 #+BEGIN_SRC emacs-lisp
@@ -510,4 +510,4 @@ These things have to take the form:
 (key-chord-define-global "o0" 'helm-find-files)
 (key-chord-define-global "w2" 'ipython)
 )
-=======
+#+END_SRC
