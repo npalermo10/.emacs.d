@@ -232,6 +232,12 @@ These things have to take the form:
 (defun my-erc-setup-hook ()
   (my-keys-minor-mode 0))
 (add-hook 'erc-mode-hook 'my-erc-setup-hook)
+
+
+#+END_SRC
+* shell commands to run at startup
+#+BEGIN_SRC sh
+setxkbmap -option ctrl:nocaps  
 #+END_SRC
 * Emacs appearece menu,toolbar,scrollbar
 #+BEGIN_SRC emacs-lisp
@@ -239,27 +245,7 @@ These things have to take the form:
   (toggle-scroll-bar -1) 
   (tool-bar-mode -1)
   (show-paren-mode t)
-
-  ;; fring indicators
-  (setq indicate-empty-lines t)
-    (setq indicate-buffer-boundaries 'left)
-    (setq fringe-indicator-alist '(
-      (truncation . (left-arrow right-arrow))
-      (continuation . (left-curly-arrow backslash)) ;; right-curly-arrow
-      (overlay-arrow . right-triangle)
-      (up . up-arrow)
-      (down . down-arrow)
-      (top . (top-left-angle top-right-angle))
-      (bottom . (bottom-left-angle bottom-right-angle top-right-angle top-left-angle))
-      (top-bottom . (left-bracket right-bracket top-right-angle top-left-angle))
-      (empty-line . empty-line)
-      (unknown . question-mark)))
-    (setq fringe-cursor-alist '(
-      (box . left-triangle)
-      (hollow . right-triangle)
-      (bar . left-triangle)
-      (hbar . horizontal-bar)
-      (hollow-small . hollow-square)))
+  
 #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
@@ -307,21 +293,40 @@ These things have to take the form:
 #+END_SRC
 ** load python-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package python-mode 
-  :config 
-  (setq
-   python-shell-interpreter "ipython"
-   python-shell-interpreter-args ""
-   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-   python-shell-completion-setup-code
-     "from IPython.core.completerlib import module_completion"
-   python-shell-completion-module-string-code
-     "';'.join(module_completion('''%s'''))\n"
-   python-shell-completion-string-code
-     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
-   
-  
+    (use-package python-mode 
+    :config 
+    (setq
+     python-shell-interpreter "ipython"
+     python-shell-interpreter-args ""
+     python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+     python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+     python-shell-completion-setup-code
+       "from IPython.core.completerlib import module_completion"
+     python-shell-completion-module-string-code
+       "';'.join(module_completion('''%s'''))\n"
+     python-shell-completion-string-code
+       "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+     
+  )
+     
+  (defun my-ipython-setup-hook ()
+    (my-keys-minor-mode 0)
+  )
+  (add-hook 'py-ipython-shell-mode-hook 'my-ipython-setup-hook)
+
+  (defun my-python-setup-hook ()
+     (highlight-indentation-mode t)
+  )
+
+  (add-hook 'python-mode-hook 'my-python-setup-hook)
+
+
+
+  (setq py-split-windows-on-execute-p nil)
+
+  (custom-set-variables
+   '(py-shell-switch-buffers-on-execute nil))
+
 
 #+END_SRC
 ** keybindings
@@ -335,8 +340,15 @@ These things have to take the form:
 (local-set-key (kbd "M-u") 'py-shift-left)
 )
 
+(defun ipython-override-keys ()
+(local-set-key (kbd "C-S-i") 'comint-previous-input)
+(local-set-key (kbd "C-S-k") 'comint-next-input)
+(local-set-key (kbd "C-j") 'backward-char)
+(local-set-key (kbd "C-i") 'previous-line)
+)
+
 (add-hook 'python-mode-hook 'python-override-keys)
-(add-hook 'py-ipython-shell-mode-hook 'python-override-keys)
+(add-hook 'py-ipython-shell-mode-hook 'ipython-override-keys)
 
 #+END_SRC
 ** jedi mode python autocomplete
@@ -388,6 +400,8 @@ These things have to take the form:
  'org-babel-load-languages
  '((python . t)))
 
+(require 'ob-sh)
+(org-babel-do-load-languages 'org-babel-load-languages '((sh . t)))
 #+END_SRC
 ** my-org-functions
 #+BEGIN_SRC emacs-lisp
@@ -473,19 +487,10 @@ These things have to take the form:
 ;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
 ;;; activate, otherwise, auto-complete will
 #+END_SRC
-* erc
-# #+BEGIN_SRC emacs-lisp
-(use-package erc-services
-:ensure t
-:config 
-(erc-services-mode 1)
-)
-#+END_SRC
-<<<<<<< HEAD
 * Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
-:ensure t)
+:ensure t
 )
 #+END_SRC
 * helm
@@ -499,7 +504,19 @@ These things have to take the form:
 (global-set-key (kbd "C-s-=") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z") 'helm-select-action)
+(define-key helm-map (kbd "C-k") 'helm-next-line)
+(define-key helm-map (kbd "C-i") 'helm-previous-line)
 )
+#+END_SRC
+** keybindings
+#+BEGIN_SRC emacs-lisp
+(defun helm-override-keys ()
+)
+
+(add-hook 'helm-mode-hook 'helm-override-keys)
+
 #+END_SRC
 * key chord
 #+BEGIN_SRC emacs-lisp
