@@ -396,6 +396,8 @@ setxkbmap -option ctrl:nocaps
 ;; (setq cua-keep-region-after-copy t) 
 )
 
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
