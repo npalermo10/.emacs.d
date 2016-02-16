@@ -530,3 +530,27 @@ setxkbmap -option ctrl:nocaps
 (key-chord-define-global "w2" 'ipython)
 )
 #+END_SRC
+* PDF-tools
+#+BEGIN_SRC emacs-lisp
+(use-package pdf-tools
+:ensure t
+:config
+(require 'pdf-tools)
+(pdf-tools-install)
+)
+#+END_SRC
+* ace jump mode
+#+BEGIN_SRC emacs-lisp
+(use-package ace-jump-mode
+:ensure t
+:config
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;; you can select the key you prefer to
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+)
+#+END_SRC
