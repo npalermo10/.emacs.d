@@ -12,8 +12,6 @@
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(erc-nick "synthstutter")
-
-
  '(fci-rule-color "#383838")
  '(org-capture-templates
    (quote
@@ -25,8 +23,13 @@
       "")
      ("h" "home" entry
       (file "~/org/home.org")
+      "")
+     ("l" "lab" entry
+      (file "~/org/lab.org")
       ""))))
  '(org-catch-invisible-edits (quote error))
+ '(py-shell-switch-buffers-on-execute nil)
+ '(python-shell-buffer-name "ipython")
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
