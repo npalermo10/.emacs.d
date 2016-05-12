@@ -57,5 +57,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:background "dark olive green" :foreground "black" :box (:line-width -1 :style released-button)))))
  '(org-block ((t (:inherit shadow :background "gray8"))))
- '(org-level-7 ((t (:foreground "violet red")))))
+ '(org-level-7 ((t (:foreground "violet red"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "OliveDrab2"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "medium orchid"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "salmon")))))

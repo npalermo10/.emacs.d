@@ -277,7 +277,7 @@ setxkbmap -option ctrl:nocaps
 (smartparens-global-mode 1)
 )
 
-;(add-hook 'after-init-hook 'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-flycheck-mode)
 #+END_SRC
 
 * Python
@@ -295,22 +295,22 @@ setxkbmap -option ctrl:nocaps
                    (t (line-end-position)))))
     (py-execute-region-ipython-no-switch beg end)))
 #+END_SRC
-** COMMENT load python-mode
+** load python-mode
 #+BEGIN_SRC emacs-lisp
     (use-package python-mode 
     :ensure t
     :config 
-    ;; (setq
-    ;;  python-shell-interpreter "ipython"
-    ;;  python-shell-interpreter-args ""
-    ;;  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-    ;;  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-    ;;  python-shell-completion-setup-code
-    ;;    "from IPython.core.completerlib import module_completion"
-    ;;  python-shell-completion-module-string-code
-    ;;    "';'.join(module_completion('''%s'''))\n"
-    ;;  python-shell-completion-string-code
-    ;;    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+    (setq
+     python-shell-interpreter "ipython"
+     python-shell-interpreter-args ""
+     python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+     python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+     python-shell-completion-setup-code
+       "from IPython.core.completerlib import module_completion"
+     python-shell-completion-module-string-code
+       "';'.join(module_completion('''%s'''))\n"
+     python-shell-completion-string-code
+       "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
      
   )
      
@@ -329,8 +329,6 @@ setxkbmap -option ctrl:nocaps
 
   (setq py-split-windows-on-execute-p nil)
 
-  (custom-set-variables
-   '(py-shell-switch-buffers-on-execute nil))
 
 
 #+END_SRC
@@ -564,4 +562,23 @@ setxkbmap -option ctrl:nocaps
  (define-key global-map (kbd "C-c s") 'ace-jump-mode)
 )
 #+END_SRC
+* Rainbow parenthesis matching
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  )
+#+END_SRC
+* ledger mode
+#+BEGIN_SRC emacs-lisp
+(use-package ledger-mode
+    :ensure t
+    :config 
 
+(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+(add-to-list 'load-path
+             (expand-file-name "/path/to/ledger/source/lisp/"))
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+)
+#+END_SRC
