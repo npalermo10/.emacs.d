@@ -277,7 +277,12 @@ setxkbmap -option ctrl:nocaps
 (smartparens-global-mode 1)
 )
 
+(use-package flycheck
+:ensure t
+:config
 (add-hook 'after-init-hook 'global-flycheck-mode)
+)
+
 #+END_SRC
 
 * Python
@@ -319,9 +324,7 @@ setxkbmap -option ctrl:nocaps
   )
   (add-hook 'py-ipython-shell-mode-hook 'my-ipython-setup-hook)
 
-  (defun my-python-setup-hook ()
-     (highlight-indentation-mode t)
-  )
+  
 
   (add-hook 'python-mode-hook 'my-python-setup-hook)
 
@@ -356,14 +359,24 @@ setxkbmap -option ctrl:nocaps
 #+END_SRC
 ** jedi mode python autocomplete
 #+BEGIN_SRC emacs-lisp
+(use-package jedi
+:ensure t
+:config
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t) 
 (setq jedi:get-in-function-call-delay 500)
 (setq jedi:get-in-function-call-timeout 1000)
+)
 #+END_SRC
-** fix pdb not loading current buffer 
+** highlight indendation mode 
 #+BEGIN_SRC emacs-lisp
-
+(use-package highlight-indentation
+:ensure t
+:config
+(defun my-python-setup-hook ()
+     (highlight-indentation-mode t)
+  )
+)
 #+END_SRC
 
 * Org-mode
@@ -446,29 +459,9 @@ setxkbmap -option ctrl:nocaps
 
 * Arduino mode
 #+BEGIN_SRC emacs-lisp
-(use-package arduino-mode)
-#+END_SRC
-* latex stuff
-** auctex
-#+BEGIN_SRC emacs-lisp
-(load "auctex.el" nil t t)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-#+END_SRC
-** reftex
-#+BEGIN_SRC emacs-lisp
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-;; So that RefTeX finds my bibliography
-(setq reftex-default-bibliography '("/home/nick/my_zotero.bib"))
-#+END_SRC
-** zotelo
-#+BEGIN_SRC emacs-lisp
-  (use-package zotelo
-  :ensure t
-  :config
-  (add-hook 'TeX-mode-hook 'zotelo-minor-mode))
+(use-package arduino-mode
+:ensure t
+)
 #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
@@ -539,8 +532,28 @@ setxkbmap -option ctrl:nocaps
 (key-chord-define-global "w2" 'ipython)
 )
 #+END_SRC
-* PDF-tools
+* Rainbow parenthesis matching
 #+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  )
+#+END_SRC
+* ledger mode
+##+BEGIN_SRC emacs-lisp
+(use-package ledger-mode
+    :ensure t
+    :config 
+
+(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+(add-to-list 'load-path
+             (expand-file-name "/path/to/ledger/source/lisp/"))
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+)
+#+END_SRC
+* PDF-tools
+##+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
 :ensure t
 :config
@@ -549,7 +562,7 @@ setxkbmap -option ctrl:nocaps
 )
 #+END_SRC
 * ace jump mode
-#+BEGIN_SRC emacs-lisp
+##+BEGIN_SRC emacs-lisp
 (use-package ace-jump-mode
 :ensure t
 :config
@@ -562,23 +575,25 @@ setxkbmap -option ctrl:nocaps
  (define-key global-map (kbd "C-c s") 'ace-jump-mode)
 )
 #+END_SRC
-* Rainbow parenthesis matching
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
+* latex stuff
+** auctex
+##+BEGIN_SRC emacs-lisp
+(load "auctex.el" nil t t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+#+END_SRC
+** reftex
+##+BEGIN_SRC emacs-lisp
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+;; So that RefTeX finds my bibliography
+(setq reftex-default-bibliography '("/home/nick/my_zotero.bib"))
+#+END_SRC
+** zotelo
+##+BEGIN_SRC emacs-lisp
+  (use-package zotelo
   :ensure t
   :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  )
-#+END_SRC
-* ledger mode
-#+BEGIN_SRC emacs-lisp
-(use-package ledger-mode
-    :ensure t
-    :config 
-
-(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
-(add-to-list 'load-path
-             (expand-file-name "/path/to/ledger/source/lisp/"))
-(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
-)
+  (add-hook 'TeX-mode-hook 'zotelo-minor-mode))
 #+END_SRC
