@@ -1,6 +1,8 @@
-;;; package --- Summary
-
+;;; pdb_emacs.el --- Insert and remove pdb import and traces
+; Package-Requires: ((python-mode))
 ;;; Commentary:
+
+;;This package eases the use of pdb for python debugging by providing functions to quickly insert pdb.set_trace() and import pdb into your code. Also provides a pdb cleanup function. 
 
 ;;; Code:
 
@@ -49,7 +51,6 @@
       (beginning-of-line)
       (kill-line 1))
     ))
-
 
 (provide 'pdb_emacs)
 ;;; pdb_emacs.el ends here
