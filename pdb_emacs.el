@@ -21,13 +21,24 @@
   (goto-char(point-max))
   (if (search-backward "import pdb" nil t)
       ()
-    (goto-char(point-min))
-    (newline)
-    (previous-line)
-    (insert-string "import pdb")
-    (py-indent-line-outmost)
+    (if (re-search-backward "#!.*python.*" nil t)
+        (progn
+         (end-of-line)
+         (newline)
+         (insert-string "import pdb")
+         (py-indent-line-outmost)
+         )
+
+      (goto-char(point-min))
+      (newline)
+      (previous-line)
+      (insert-string "import pdb")
+      (py-indent-line-outmost))
     )
+
   )
+
+
 
 (defun my-insert-pdb-import-and-break()
   "imports pdb (if needed) and sets pdb break"
@@ -60,6 +71,7 @@
     (kill-line 1)
     )
   )
+
 
 (provide 'pdb_emacs)
 ;;; pdb_emacs.el ends here
