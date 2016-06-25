@@ -4,7 +4,6 @@
 
 ;;; Code:
 
-
 (defun my-insert-pdb-break ()
   "insert a pdb.set_trace() at point"
   (interactive)
@@ -38,8 +37,6 @@
 
   )
 
-
-
 (defun my-insert-pdb-import-and-break()
   "imports pdb (if needed) and sets pdb break"
   (interactive)
@@ -47,14 +44,6 @@
     (my-insert-pdb-break)
     (my-insert-import-pdb)
     )
-  )
-
-(defun my-execute-ipython-with-pdb-at-point()
-  "inserts pdb.set_trace() at point and inserts import pdb at top, executes buffer in ipython"
-  (interactive)
-  (my-insert-pdb-set-trace-at_point)
-  (my-insert-import-pdb)
-  (py-execute-buffer-ipython-switch)
   )
 
 (defun my-pdb-cleanup()
