@@ -1,5 +1,6 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'package)
 (add-to-list 'package-archives
