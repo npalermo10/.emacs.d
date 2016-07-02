@@ -253,6 +253,7 @@ setxkbmap -option ctrl:nocaps
 #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
+(tooltip-mode nil)                      ; one-line help text in the echo area
 (electric-indent-mode 1)
 
 ;;dont have to use "yes" or "no" instead use "y" or "n"
