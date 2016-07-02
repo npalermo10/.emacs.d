@@ -46,15 +46,16 @@
     (widen)
     (save-excursion
       (goto-char(point-min))
-      (search-forward "import pdb" nil t)
-      (beginning-of-line)
-      (kill-line 1)
-      (goto-char(point-min))
+      (if (search-forward "import pdb" nil t)
+          (progn
+            (beginning-of-line)
+            (kill-line 1)
+            (goto-char(point-min)))
+        ())
       (while
           (search-forward "pdb.set_trace()" nil t)
         (beginning-of-line)
-        (kill-line 1))
-      )))
+        (kill-line 1)))))
 
 (provide 'pdb_emacs.el)
 ;;; pdb_emacs.el ends here
