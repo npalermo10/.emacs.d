@@ -547,6 +547,25 @@ setxkbmap -option ctrl:nocaps
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 #+END_SRC
+* org zot
+#+BEGIN_SRC emacs-lisp
+(use-package zotxt
+    :ensure t
+    :config 
+
+;; Activate org-zotxt-mode in org-mode buffers
+(add-hook 'org-mode-hook (lambda () (org-zotxt-mode 1)))
+;; Bind something to replace the awkward C-u C-c " i
+(define-key org-mode-map
+  (kbd "C-c \" \"") (lambda () (interactive)
+                      (org-zotxt-insert-reference-link '(4))))
+;; Change citation format to be less cumbersome in files.
+;; You'll need to install mkbehr-short into your style manager first.
+(eval-after-load "zotxt"
+;;'(setq zotxt-default-bibliography-style "mkbehr-short")
+'(setq zotxt-default-bibliography-style "apa")
+#+END_SRC
+))
 * ledger mode
 #+BEGIN_SRC emacs-lisp
 (use-package ledger-mode
