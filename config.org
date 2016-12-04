@@ -396,7 +396,8 @@ setxkbmap -option ctrl:nocaps
 (setq org-agenda-files (list "~/org/work.org"
                              "~/org/school.org" 
                              "~/org/home.org"
-                             "~/org/lab.org"))
+                             "~/org/lab.org"
+                             "~/org/qbic.org"))
 (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
 (setq org-startup-indented t)
 (setq org-hide-leading-stars t)
@@ -562,10 +563,14 @@ setxkbmap -option ctrl:nocaps
 ;; Change citation format to be less cumbersome in files.
 ;; You'll need to install mkbehr-short into your style manager first.
 (eval-after-load "zotxt"
-;;'(setq zotxt-default-bibliography-style "mkbehr-short")
-'(setq zotxt-default-bibliography-style "apa")
+'(setq zotxt-default-bibliography-style "mkbehr-short")))
+;;'(setq zotxt-default-bibliography-style "apa")))
 #+END_SRC
-))
+* easyPG
+#+BEGIN_SRC emacs-lisp
+(require 'epa-file)
+    (epa-file-enable)
+#+END_SRC
 * ledger mode
 #+BEGIN_SRC emacs-lisp
 (use-package ledger-mode
