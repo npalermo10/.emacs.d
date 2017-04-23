@@ -15,17 +15,23 @@
  '(fci-rule-color "#383838")
  '(org-capture-templates
    (quote
-    (("s" "school" entry
-      (file "~/org/school.org")
+    (("b" "buy list" entry
+      (file "~/org/agenda/buy.org")
+      "")
+     ("Q" "qbic" entry
+      (file "~/org/agenda/qbic.org")
+      "")
+     ("s" "school" entry
+      (file "~/org/agenda/school.org")
       "")
      ("w" "work" entry
-      (file "~/org/work.org")
+      (file "~/org/agenda/work.org")
       "")
      ("h" "home" entry
-      (file "~/org/home.org")
+      (file "~/org/agenda/home.org")
       "")
      ("l" "lab" entry
-      (file "~/org/lab.org")
+      (file "~/org/agenda/lab.org")
       ""))))
  '(org-catch-invisible-edits (quote error))
  '(py-shell-switch-buffers-on-execute nil)
