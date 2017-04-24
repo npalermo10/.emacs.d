@@ -286,104 +286,39 @@ setxkbmap -option ctrl:nocaps
 
 #+END_SRC
 
-* Python
-** My python functions
-#+BEGIN_SRC emacs-lisp
-(defun my-python-send-region (&optional beg end)
-  (interactive)
-  (let ((beg (cond (beg beg)
-                   ((region-active-p)
-                    (region-beginning))
-                   (t (line-beginning-position))))
-        (end (cond (end end)
-                   ((region-active-p)
-                    (copy-marker (region-end)))
-                   (t (line-end-position)))))
-    (py-execute-region-ipython-no-switch beg end)))
-#+END_SRC
+* Python-elpy
 ** My pdb functions
+- in order to make these functions work I need to import all of python mode.. Its ridiculous
+#+BEGIN_SRC emacs-lisp
+(use-package python-mode 
+     :ensure t
+)
+#+END_SRC
+- now we import my functions
 #+BEGIN_SRC emacs-lisp
 (require 'pdb_emacs.el)
 #+END_SRC
-** load python-mode
+
+** initialize elpy
 #+BEGIN_SRC emacs-lisp
-    (use-package python-mode 
+    (use-package elpy  
     :ensure t
     :config 
-    (setq
-     python-shell-interpreter "ipython"
-     python-shell-interpreter-args "--simple-prompt"
-     python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-     python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-     python-shell-completion-setup-code
-       "from IPython.core.completerlib import module_completion"
-     python-shell-completion-module-string-code
-       "';'.join(module_completion('''%s'''))\n"
-     python-shell-completion-string-code
-       "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
-     
+    (elpy-enable)
+    (defun my-elpy-hook ()
+        (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
+        (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
+        (local-set-key (kbd "M-I") 'elpy-nav-move-line-or-region-up)
+        (local-set-key (kbd "M-K") 'elpy-nav-move-line-or-region-down)
+        (local-set-key (kbd "M-o") 'elpy-nav-indent-shift-right)
+        (local-set-key (kbd "M-u") 'elpy-nav-indent-shift-left)
+        (local-set-key (kbd "C-S-i") 'elpy-nav-backward-block)
+        (local-set-key (kbd "C-S-k") 'elpy-nav-forward-block)
+        (local-set-key (kbd "C-c p") 'my-insert-pdb-import-and-break)
+        (local-set-key (kbd "C-c o") 'my-pdb-cleanup)
+        )
+    (add-hook 'elpy-mode-hook 'my-elpy-hook)
   )
-     
-  (defun my-ipython-setup-hook ()
-    (my-keys-minor-mode 0)
-  )
-  (add-hook 'py-ipython-shell-mode-hook 'my-ipython-setup-hook)
-
-  
-
-  (add-hook 'python-mode-hook 'my-python-setup-hook)
-
-
-
-  (setq py-split-windows-on-execute-p nil)
-
-
-
-#+END_SRC
-** keybindings
-#+BEGIN_SRC emacs-lisp
-(defun python-override-keys ()
-(local-set-key (kbd "C-c C-c") 'my-python-send-region)
-(local-set-key (kbd "C-c C-s") 'py-execute-buffer-ipython-no-switch)
-(local-set-key (kbd "M-RET") 'py-newline-and-indent)
-
-(local-set-key (kbd "M-o") 'py-shift-right)
-(local-set-key (kbd "M-u") 'py-shift-left)
-(local-set-key (kbd "C-c p") 'my-insert-pdb-import-and-break)
-(local-set-key (kbd "C-c o") 'my-pdb-cleanup)
-)
-
-(defun ipython-override-keys ()
-(local-set-key (kbd "C-S-i") 'comint-previous-input)
-(local-set-key (kbd "C-S-k") 'comint-next-input)
-(local-set-key (kbd "C-j") 'backward-char)
-(local-set-key (kbd "C-i") 'previous-line)
-)
-
-(add-hook 'python-mode-hook 'python-override-keys)
-(add-hook 'py-ipython-shell-mode-hook 'ipython-override-keys)
-
-#+END_SRC
-** jedi mode python autocomplete
-#+BEGIN_SRC emacs-lisp
-(use-package jedi
-:ensure t
-:config
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t) 
-(setq jedi:get-in-function-call-delay 500)
-(setq jedi:get-in-function-call-timeout 1000)
-)
-#+END_SRC
-** highlight indendation mode 
-#+BEGIN_SRC emacs-lisp
-(use-package highlight-indentation
-:ensure t
-:config
-(defun my-python-setup-hook ()
-     (highlight-indentation-mode t)
-  )
-)
 #+END_SRC
 
 * Org-mode
@@ -538,7 +473,6 @@ setxkbmap -option ctrl:nocaps
 :config
 (key-chord-mode 1)
 (key-chord-define-global "o0" 'helm-find-files)
-(key-chord-define-global "w2" 'ipython)
 )
 #+END_SRC
 * Rainbow parenthesis matching
