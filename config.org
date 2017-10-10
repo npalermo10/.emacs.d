@@ -133,7 +133,7 @@ My own personal emacs config
 #+END_SRC
 ** Keyboard quit
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-q") 'keyboard-escape-quit)
+(global-set-key (kbd "M-q") 'keyboard-quit)
 #+END_SRC
 ** Commenting
 #+BEGIN_SRC emacs-lisp
@@ -206,7 +206,7 @@ My own personal emacs config
 (define-key my-keys-minor-mode-map (kbd "C-z") 'undo)
 
 ;;keyboard quit
-(define-key my-keys-minor-mode-map (kbd "M-q") 'keyboard-escape-quit)
+(define-key my-keys-minor-mode-map (kbd "M-q") 'keyboard-quit)
 
 ;;commenting
 (define-key my-keys-minor-mode-map (kbd "C-/") 'comment-or-uncomment-line-or-region)
@@ -278,11 +278,11 @@ setxkbmap -option ctrl:nocaps
 (smartparens-global-mode 1)
 )
 
-(use-package flycheck
-:ensure t
-:config
-(add-hook 'after-init-hook 'global-flycheck-mode)
-)
+;; (use-package flycheck
+;; :ensure t
+;; :config
+;; (add-hook 'after-init-hook 'global-flycheck-mode)
+;;)
 
 #+END_SRC
 
@@ -305,6 +305,7 @@ setxkbmap -option ctrl:nocaps
     :ensure t
     :config 
     (elpy-enable)
+    (elpy-use-ipython)
     (defun my-elpy-hook ()
         (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
         (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
@@ -320,7 +321,12 @@ setxkbmap -option ctrl:nocaps
     (add-hook 'elpy-mode-hook 'my-elpy-hook)
   )
 #+END_SRC
-
+* ipython settings
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--pylab -i --simple-prompt"
+      )
+#+END_SRC
 * Org-mode
 ** config
 #+BEGIN_SRC emacs-lisp
@@ -481,6 +487,7 @@ setxkbmap -option ctrl:nocaps
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
   )
 #+END_SRC
 * org zot
