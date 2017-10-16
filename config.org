@@ -315,7 +315,7 @@ setxkbmap -option ctrl:nocaps
         (local-set-key (kbd "M-u") 'elpy-nav-indent-shift-left)
         (local-set-key (kbd "C-S-i") 'elpy-nav-backward-block)
         (local-set-key (kbd "C-S-k") 'elpy-nav-forward-block)
-        (local-set-key (kbd "C-c p") 'my-insert-pdb-import-and-break)
+        (local-set-key (kbd "C-c p") 'my-insert-pdb-break)
         (local-set-key (kbd "C-c o") 'my-pdb-cleanup)
         )
     (add-hook 'elpy-mode-hook 'my-elpy-hook)

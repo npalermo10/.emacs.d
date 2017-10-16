@@ -12,7 +12,7 @@
   (beginning-of-line)
   (newline)
   (forward-line -1)
-  (insert "pdb.set_trace()")
+  (insert "import pdb; pdb.set_trace()")
   (py-indent-line-outmost))
 
 (defun my-insert-import-pdb()
@@ -46,16 +46,31 @@
     (widen)
     (save-excursion
       (goto-char(point-min))
-      (if (search-forward "import pdb" nil t)
+      (if (search-forward "import pdb; pdb.set_trace()" nil t)
           (progn
             (beginning-of-line)
             (kill-line 1)
             (goto-char(point-min)))
         ())
-      (while
-          (search-forward "pdb.set_trace()" nil t)
-        (beginning-of-line)
-        (kill-line 1)))))
+      )))
+
+
+(defun pdb-pm ()
+    "Import pdb and invoke pdb.pm() to debug most recent python error in python shell"
+    (interactive)
+    (insert "import pdb; pdb.pm()")
+    (comint-send-input)
+  )
+
+(defun pdb-pm-keys ()
+    "Setup various keys for python debugger (pdb) use in the python shell."
+    (progn
+      (local-set-key "\C-cp" 'pdb-pm)))
+
+(add-hook 'inferior-python-mode-hook 'pdb-pm-keys)
+;;       )
+
+
 
 (provide 'pdb_emacs.el)
 ;;; pdb_emacs.el ends here
