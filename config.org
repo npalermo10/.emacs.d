@@ -90,18 +90,19 @@ My own personal emacs config
 * global keybindings
 ** Navigation
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-i") 'previous-line)
-(global-set-key (kbd "C-k") 'next-line)
-(global-set-key (kbd "C-l") 'forward-char)
-(global-set-key (kbd "C-j") 'backward-char)
-(global-set-key (kbd "C-S-i") 'scroll-down)
-(global-set-key (kbd "C-S-k") 'scroll-up)
-(global-set-key (kbd "C-S-l") 'forward-word)
-(global-set-key (kbd "C-S-j") 'backward-word)
-(global-set-key (kbd "C-x C-l") 'end-of-line)
-(global-set-key (kbd "C-x C-j") 'beginning-of-line)
-(global-set-key (kbd "C-x C-k") 'end-of-buffer)
-(global-set-key (kbd "C-x C-i") 'beginning-of-buffer)
+(define-key input-decode-map [?\C-m] [C-m])
+(global-set-key (kbd "C-t") 'previous-line)
+(global-set-key (kbd "C-w") 'next-line)
+(global-set-key (kbd "C-n") 'forward-char)
+(global-set-key (kbd "<C-m>") 'backward-char)
+(global-set-key (kbd "C-S-t") 'scroll-down)
+(global-set-key (kbd "C-S-w") 'scroll-up)
+(global-set-key (kbd "C-S-n") 'forward-word)
+(global-set-key (kbd "C-S-m") 'backward-word)
+(global-set-key (kbd "C-x C-n") 'end-of-line)
+(global-set-key (kbd "C-x <C-m>") 'beginning-of-line)
+(global-set-key (kbd "C-x C-w") 'end-of-buffer)
+(global-set-key (kbd "C-x C-t") 'beginning-of-buffer)
 
 (global-set-key (kbd "M-d") 'other-window)
 (global-set-key (kbd "C-o") 'split-window-right)
@@ -112,16 +113,21 @@ My own personal emacs config
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "M-b") 'switch-to-prev-buffer)
 #+END_SRC
+** help
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
 ** Killing
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-i") 'backward-kill-line)
-(global-set-key (kbd "M-k") 'kill-line)
-(global-set-key (kbd "M-l") 'delete-forward-char)
-(global-set-key (kbd "M-j") 'delete-backward-char)
-(global-set-key (kbd "M-S-i") 'previous-line)
-(global-set-key (kbd "M-S-k") 'next-line)
-(global-set-key (kbd "M-L") 'kill-word)
-(global-set-key (kbd "M-J") 'backward-kill-word)
+(global-set-key (kbd "M-t") 'backward-kill-line)
+(global-set-key (kbd "M-w") 'kill-line)
+(global-set-key (kbd "M-n") 'delete-forward-char)
+(global-set-key (kbd "M-m") 'delete-backward-char)
+(global-set-key (kbd "M-S-t") 'previous-line)
+(global-set-key (kbd "M-S-w") 'next-line)
+(global-set-key (kbd "M-N") 'kill-word)
+(global-set-key (kbd "M-M") 'backward-kill-word)
+
 #+END_SRC
 ** Copy, Cut, Paste, Undo
 #+BEGIN_SRC emacs-lisp
@@ -313,8 +319,8 @@ setxkbmap -option ctrl:nocaps
         (local-set-key (kbd "M-K") 'elpy-nav-move-line-or-region-down)
         (local-set-key (kbd "M-o") 'elpy-nav-indent-shift-right)
         (local-set-key (kbd "M-u") 'elpy-nav-indent-shift-left)
-        (local-set-key (kbd "C-S-i") 'elpy-nav-backward-block)
-        (local-set-key (kbd "C-S-k") 'elpy-nav-forward-block)
+        (local-set-key (kbd "C-S-i") 'scroll-down)
+        (local-set-key (kbd "C-S-k") 'scroll-up)
         (local-set-key (kbd "C-c p") 'my-insert-pdb-break)
         (local-set-key (kbd "C-c o") 'my-pdb-cleanup)
         )
@@ -387,6 +393,8 @@ setxkbmap -option ctrl:nocaps
 (local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
 (local-set-key (kbd "M-u") 'org-metaleft)
 (local-set-key (kbd "M-o") 'org-metaright)
+(local-unset-key (kbd "M-h"))
+
 )
 
 (add-hook 'org-mode-hook 'org-override-keys)
@@ -460,8 +468,11 @@ setxkbmap -option ctrl:nocaps
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-z") 'helm-select-action)
-(define-key helm-map (kbd "C-k") 'helm-next-line)
-(define-key helm-map (kbd "C-i") 'helm-previous-line)
+(define-key helm-map (kbd "C-w") 'helm-next-line)
+(define-key helm-map (kbd "C-t") 'helm-previous-line)
+(define-key helm-find-files-map (kbd "M-M") 'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "C-n") 'forward-char)
+(define-key helm-find-files-map (kbd "M-m") 'delete-backward-char)
 )
 #+END_SRC
 ** keybindings
@@ -478,7 +489,7 @@ setxkbmap -option ctrl:nocaps
 :ensure t
 :config
 (key-chord-mode 1)
-(key-chord-define-global "o0" 'helm-find-files)
+(key-chord-define-global "r0" 'helm-find-files)
 )
 #+END_SRC
 * Rainbow parenthesis matching
