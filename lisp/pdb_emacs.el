@@ -62,15 +62,6 @@
     (comint-send-input)
   )
 
-(defun pdb-pm-keys ()
-    "Setup various keys for python debugger (pdb) use in the python shell."
-    (progn
-      (local-set-key "\C-cp" 'pdb-pm)))
-
-(add-hook 'inferior-python-mode-hook 'pdb-pm-keys)
-;;       )
-
-
 
 (provide 'pdb_emacs.el)
 ;;; pdb_emacs.el ends here

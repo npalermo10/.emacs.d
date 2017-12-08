@@ -249,8 +249,10 @@ setxkbmap -option ctrl:nocaps
     
     (defun my-inf-py-hook ()
         (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+        (local-set-key "\C-cp" 'pdb-pm)
         )
         (add-hook 'inferior-python-mode-hook 'my-inf-py-hook) 
+        
       )
 #+END_SRC
 ** holocube exp
