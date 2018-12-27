@@ -8,6 +8,9 @@
  '(custom-safe-themes
    (quote
     ("024efcde8a841ff45df8b871d5b693d4c9a7e03f0a02a1af496e79acb5e2f745" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" default)))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
@@ -87,8 +90,12 @@
      ("A" "#+ASCII: " "")
      ("i" "#+INDEX: ?" "#+INDEX: ?")
      ("I" "#+INCLUDE: %file ?" "<include file=%file markup=\"?\">"))))
+ '(package-selected-packages
+   (quote
+    (hyperbole zotxt zotelo zenburn-theme wiki-summary web-mode use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit ledger-mode key-chord jedi impatient-mode helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode auctex arduino-mode ace-jump-mode)))
  '(py-shell-switch-buffers-on-execute nil)
  '(python-shell-buffer-name "ipython")
+ '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote

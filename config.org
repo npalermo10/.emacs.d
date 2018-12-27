@@ -108,6 +108,7 @@ My own personal emacs config
 (global-set-key (kbd "C-o") 'split-window-right)
 (global-set-key (kbd "C-S-o") 'split-window-below)
 (global-set-key (kbd "C-x C-o") 'delete-window)
+(global-set-key (kbd "C-k") 'kill-buffer-and-window)
 
 (global-set-key (kbd "C-b") 'switch-to-next-buffer)
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
@@ -174,6 +175,8 @@ setxkbmap -option ctrl:nocaps
   (menu-bar-mode -1) 
   (toggle-scroll-bar -1) 
   (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (scroll-bar-mode -1)
   (show-paren-mode t)
 (setq line-number-mode t)                     ;start in line-number-mode
 (setq column-number-mode t)                   ;start in column-number-mode
@@ -205,14 +208,34 @@ setxkbmap -option ctrl:nocaps
 (smartparens-global-mode 1)
 )
 
-;; (use-package flycheck
-;; :ensure t
-;; :config
-;; (add-hook 'after-init-hook 'global-flycheck-mode)
-;;)
+#+END_SRC
+
+* speed up startup
+#+BEGIN_SRC emacs-lisp
+;;; Temporarily reduce garbage collection during startup. Inspect `gcs-done'.
+(defun ambrevar/reset-gc-cons-threshold ()
+  (setq gc-cons-threshold (car (get 'gc-cons-threshold 'standard-value))))
+(setq gc-cons-threshold (* 64 1024 1024))
+(add-hook 'after-init-hook #'ambrevar/reset-gc-cons-threshold)
+
+;;; Temporarily disable the file name handler.
+(setq default-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(defun ambrevar/reset-file-name-handler-alist ()
+  (setq file-name-handler-alist default-file-name-handler-alist))
+(add-hook 'after-init-hook #'ambrevar/reset-file-name-handler-alist)
 
 #+END_SRC
 
+* key chord
+#+BEGIN_SRC emacs-lisp
+(use-package key-chord
+:ensure t
+:config
+(key-chord-mode 1)
+
+)
+#+END_SRC
 * Python-elpy
 ** My pdb functions
 - in order to make these functions work I need to import all of python mode.. Its ridiculous
@@ -233,7 +256,10 @@ setxkbmap -option ctrl:nocaps
     :ensure t
     :config 
     (elpy-enable)
-    (elpy-use-ipython)
+    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+    (setq python-shell-interpreter "ipython3"
+        python-shell-interpreter-args "--pylab -i")
+    (key-chord-define-global ".3" 'elpy-shell-switch-to-shell)
     (defun my-elpy-hook ()
         (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
         (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
@@ -247,13 +273,7 @@ setxkbmap -option ctrl:nocaps
         )
     (add-hook 'elpy-mode-hook 'my-elpy-hook)
     
-    (defun my-inf-py-hook ()
-        (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
-        (local-set-key "\C-cp" 'pdb-pm)
-        )
-        (add-hook 'inferior-python-mode-hook 'my-inf-py-hook) 
-        
-      )
+   
 #+END_SRC
 ** holocube exp
 +BEGIN_SRC emacs-lisp
@@ -265,6 +285,14 @@ setxkbmap -option ctrl:nocaps
 #+BEGIN_SRC emacs-lisp
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "--pylab -i --simple-prompt"
+      )
+
+ (defun my-inf-py-hook ()
+        (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+        (local-set-key "\C-cp" 'pdb-pm)
+        )
+        (add-hook 'inferior-python-mode-hook 'my-inf-py-hook) 
+        
       )
 #+END_SRC
 * Org-mode
@@ -342,39 +370,39 @@ setxkbmap -option ctrl:nocaps
 #+END_SRC
 
 * Arduino mode
-#+BEGIN_SRC emacs-lisp
-;(use-package arduino-mode
-;:ensure t
-;)
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+# ;(use-package arduino-mode
+# ;:ensure t
+# ;)
+# #+END_SRC
 * yasnippet
-#+BEGIN_SRC emacs-lisp
+# #+BEGIN_SRC emacs-lisp
 
 
-(use-package yasnippet
-:ensure t
-:config
-(yas-global-mode 1)
-(define-key yas-minor-mode-map [(tab)] nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-x C-y") 'yas-expand))
+# (use-package yasnippet
+# :ensure t
+# :config
+# (yas-global-mode 1)
+# (define-key yas-minor-mode-map [(tab)] nil)
+# (define-key yas-minor-mode-map (kbd "TAB") nil)
+# (define-key yas-minor-mode-map (kbd "C-x C-y") 'yas-expand))
 
-;;; auto complete mod
-;;; should be loaded after yasnippet so that they can work together
-(use-package auto-complete-config
-:config
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
-)
+# ;;; auto complete mod
+# ;;; should be loaded after yasnippet so that they can work together
+# (use-package auto-complete-config
+# :config
+# (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+# (ac-config-default)
+# (ac-set-trigger-key "TAB")
+# (ac-set-trigger-key "<tab>")
+# )
 
 
 
-;;; set the trigger key so that it can work together with yasnippet on tab key,
-;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
-;;; activate, otherwise, auto-complete will
-#+END_SRC
+# ;;; set the trigger key so that it can work together with yasnippet on tab key,
+# ;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+# ;;; activate, otherwise, auto-complete will
+# #+END_SRC
 * Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
@@ -389,6 +417,7 @@ setxkbmap -option ctrl:nocaps
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
+(key-chord-define-global "r0" 'helm-find-files)
 (global-set-key (kbd "C-s-=") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x C-b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
@@ -399,6 +428,7 @@ setxkbmap -option ctrl:nocaps
 (define-key helm-find-files-map (kbd "M-M") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "C-n") 'forward-char)
 (define-key helm-find-files-map (kbd "M-m") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "M-n") 'delete-forward-char)
 )
 #+END_SRC
 ** keybindings
@@ -408,15 +438,6 @@ setxkbmap -option ctrl:nocaps
 
 (add-hook 'helm-mode-hook 'helm-override-keys)
 
-#+END_SRC
-* key chord
-#+BEGIN_SRC emacs-lisp
-(use-package key-chord
-:ensure t
-:config
-(key-chord-mode 1)
-(key-chord-define-global "r0" 'helm-find-files)
-)
 #+END_SRC
 * Rainbow parenthesis matching
 #+BEGIN_SRC emacs-lisp
@@ -428,63 +449,63 @@ setxkbmap -option ctrl:nocaps
   )
 #+END_SRC
 * org zot
-#+BEGIN_SRC emacs-lisp
-(use-package zotxt
-    :ensure t
-    :config 
+# #+BEGIN_SRC emacs-lisp
+# (use-package zotxt
+#     :ensure t
+#     :config 
 
-;; Activate org-zotxt-mode in org-mode buffers
-(add-hook 'org-mode-hook (lambda () (org-zotxt-mode 1)))
-;; Bind something to replace the awkward C-u C-c " i
-(define-key org-mode-map
-  (kbd "C-c \" \"") (lambda () (interactive)
-                      (org-zotxt-insert-reference-link '(4))))
-;; Change citation format to be less cumbersome in files.
-;; You'll need to install mkbehr-short into your style manager first.
-(eval-after-load "zotxt"
-'(setq zotxt-default-bibliography-style "mkbehr-short")))
-;;'(setq zotxt-default-bibliography-style "apa")))
-#+END_SRC
+# ;; Activate org-zotxt-mode in org-mode buffers
+# (add-hook 'org-mode-hook (lambda () (org-zotxt-mode 1)))
+# ;; Bind something to replace the awkward C-u C-c " i
+# (define-key org-mode-map
+#   (kbd "C-c \" \"") (lambda () (interactive)
+#                       (org-zotxt-insert-reference-link '(4))))
+# ;; Change citation format to be less cumbersome in files.
+# ;; You'll need to install mkbehr-short into your style manager first.
+# (eval-after-load "zotxt"
+# '(setq zotxt-default-bibliography-style "mkbehr-short")))
+# ;;'(setq zotxt-default-bibliography-style "apa")))
+# #+END_SRC
 * easyPG
-#+BEGIN_SRC emacs-lisp
-(require 'epa-file)
-    (epa-file-enable)
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+# (require 'epa-file)
+#     (epa-file-enable)
+# #+END_SRC
 * orgmobile
-#+BEGIN_SRC emacs-lisp
-(setq org-mobile-directory "/home/nick/Dropbox/org_agenda")
-;; moble sync
-(defvar org-mobile-sync-timer nil)
-(defvar org-mobile-sync-idle-secs (* 60 10))
-(defun org-mobile-sync ()
-  (interactive)
-  (org-mobile-pull)
-  (org-mobile-push))
-(defun org-mobile-sync-enable ()
-  "enable mobile org idle sync"
-  (interactive)
-  (setq org-mobile-sync-timer
-        (run-with-idle-timer org-mobile-sync-idle-secs t
-                             'org-mobile-sync)));
-(defun org-mobile-sync-disable ()
-  "disable mobile org idle sync"
-  (interactive)
-  (cancel-timer org-mobile-sync-timer))
-(org-mobile-sync-enable)
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+# (setq org-mobile-directory "/home/nick/Dropbox/org_agenda")
+# ;; moble sync
+# (defvar org-mobile-sync-timer nil)
+# (defvar org-mobile-sync-idle-secs (* 60 10))
+# (defun org-mobile-sync ()
+#   (interactive)
+#   (org-mobile-pull)
+#   (org-mobile-push))
+# (defun org-mobile-sync-enable ()
+#   "enable mobile org idle sync"
+#   (interactive)
+#   (setq org-mobile-sync-timer
+#         (run-with-idle-timer org-mobile-sync-idle-secs t
+#                              'org-mobile-sync)));
+# (defun org-mobile-sync-disable ()
+#   "disable mobile org idle sync"
+#   (interactive)
+#   (cancel-timer org-mobile-sync-timer))
+# (org-mobile-sync-enable)
+# #+END_SRC
 * ledger mode
-#+BEGIN_SRC emacs-lisp
-(use-package ledger-mode
-    :ensure t
-    :config 
+# #+BEGIN_SRC emacs-lisp
+# (use-package ledger-mode
+#     :ensure t
+#     :config 
 
-(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
-(add-to-list 'load-path
-             (expand-file-name "/path/to/ledger/source/lisp/"))
-(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
-(add-to-list 'auto-mode-alist '("\\.dat\\'" . ledger-mode))
-)
-#+END_SRC
+# (autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+# (add-to-list 'load-path
+#              (expand-file-name "/path/to/ledger/source/lisp/"))
+# (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+# (add-to-list 'auto-mode-alist '("\\.dat\\'" . ledger-mode))
+# )
+# #+END_SRC
 * PDF-tools
 ##+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
@@ -493,7 +514,7 @@ setxkbmap -option ctrl:nocaps
 (require 'pdf-tools)
 (pdf-tools-install)
 )
-#+END_SRC
+##+END_SRC
 * ace jump mode
 ##+BEGIN_SRC emacs-lisp
 (use-package ace-jump-mode
@@ -507,7 +528,7 @@ setxkbmap -option ctrl:nocaps
 ;; you can select the key you prefer to
  (define-key global-map (kbd "C-c s") 'ace-jump-mode)
 )
-#+END_SRC
+##+END_SRC
 * latex stuff
 ** auctex
 ##+BEGIN_SRC emacs-lisp
@@ -515,21 +536,21 @@ setxkbmap -option ctrl:nocaps
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
-#+END_SRC
+##+END_SRC
 ** reftex
 ##+BEGIN_SRC emacs-lisp
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography '("/home/nick/my_zotero.bib"))
-#+END_SRC
+##+END_SRC
 ** zotelo
 ##+BEGIN_SRC emacs-lisp
   (use-package zotelo
   :ensure t
   :config
   (add-hook 'TeX-mode-hook 'zotelo-minor-mode))
-#+END_SRC
+##+END_SRC
 * my local keybindings
 ** the override keys
 #+BEGIN_SRC emacs-lisp
