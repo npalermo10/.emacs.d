@@ -197,6 +197,19 @@ setxkbmap -option ctrl:nocaps
  (lambda ()
    (setq pcomplete-cycle-completions nil)))
 
+(autoload 'bash-completion-dynamic-complete 
+   "bash-completion"
+   "BASH completion hook")
+ (add-hook 'shell-dynamic-complete-functions
+   'bash-completion-dynamic-complete)
+
+;;;; sudo completion
+(defun pcomplete/sudo ()
+  "Completion rules for the `sudo' command."
+  (let ((pcomplete-ignore-case t))
+    (pcomplete-here (funcall pcomplete-command-completion-function))
+    (while (pcomplete-here (pcomplete-entries)))))
+
 (setq eshell-cmpl-cycle-completions nil)
 
 ;;tab key fix
@@ -208,6 +221,12 @@ setxkbmap -option ctrl:nocaps
 (smartparens-global-mode 1)
 )
 
+(use-package openwith
+:ensure t
+:config
+(openwith-mode t)
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+)
 #+END_SRC
 
 * speed up startup
@@ -294,6 +313,14 @@ setxkbmap -option ctrl:nocaps
         (add-hook 'inferior-python-mode-hook 'my-inf-py-hook) 
         
       )
+
+(defun eshell/sp ()
+  (setq python-shell-interpreter "isympy3")
+  (setq python-shell-interpreter-args "--pretty=unicode -I --")
+  (run-python)
+  (python-shell-switch-to-shell)
+  (delete-other-windows)
+  )
 #+END_SRC
 * Org-mode
 ** config
@@ -645,4 +672,23 @@ These things have to take the form:
   (my-keys-minor-mode 0))
 (add-hook 'kotl-mode-hook 'my-kotl-setup-hook)
 
+#+END_SRC
+* tramp settings for accessing remote servers
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'tramp-default-method "ssh")
+#+END_SRC
+* ssh 
+#+BEGIN_SRC emacs-lisp
+(use-package ssh
+:ensure t
+:config
+    (add-hook 'ssh-mode-hook
+              (lambda ()
+                (setq ssh-directory-tracking-mode t)
+                (shell-dirtrack-mode t)
+                (setq dirtrackp nil))))
+
+ 
+
+(require 'ssh)
 #+END_SRC
