@@ -362,12 +362,12 @@ setxkbmap -option ctrl:nocaps
 (transient-mark-mode nil)               ;; No region when it is not highlighted
 ;; (setq cua-keep-region-after-copy t) 
 (global-set-key (kbd "C-c c") 'org-capture)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
+;;(org-babel-do-load-languages
+;; 'org-babel-load-languages
+;;'((python . t)))
 
-(require 'ob-sh)
-(org-babel-do-load-languages 'org-babel-load-languages '((sh . t)))
+;;(require 'ob-shell)
+;;(org-babel-do-load-languages 'org-babel-load-languages '((sh . t)))
 
 (defun org-override-keys ()
 (local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
@@ -377,6 +377,13 @@ setxkbmap -option ctrl:nocaps
 
 (add-hook 'org-mode-hook 'org-override-keys)
 )
+
+(defun my-org-agenda-hook ()
+        (local-set-key (kbd "C-t") 'org-agenda-previous-line)
+        (local-set-key (kbd "C-w") 'org-agenda-next-line)
+               )
+(add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
+    
 
 
 #+END_SRC
