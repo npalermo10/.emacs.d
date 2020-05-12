@@ -297,7 +297,7 @@ setxkbmap -option ctrl:nocaps
     :ensure t
     :config 
     (elpy-enable)
-    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+;;    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
     (setq python-shell-interpreter "ipython3"
         python-shell-interpreter-args "--pylab -i")
     (key-chord-define-global ".3" 'elpy-shell-switch-to-shell)
