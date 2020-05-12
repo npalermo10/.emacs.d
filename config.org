@@ -297,10 +297,11 @@ setxkbmap -option ctrl:nocaps
     :ensure t
     :config 
     (elpy-enable)
-;;    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-    (setq python-shell-interpreter "ipython3"
-        python-shell-interpreter-args "--pylab -i")
-    (key-chord-define-global ".3" 'elpy-shell-switch-to-shell)
+    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+    (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "--profile=my_pylab"
+                                            )
+    (key-chord-define-global ".3" 'ipython)
     (defun my-elpy-hook ()
         (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
         (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
@@ -318,17 +319,8 @@ setxkbmap -option ctrl:nocaps
     
    
 #+END_SRC
-** holocube exp
-+BEGIN_SRC emacs-lisp
-(require 'hc_exp.el)
-(add-hook 'elpy-mode-hook 'check-hc-exp)
-
-#+END_SRC
 * ipython settings
 #+BEGIN_SRC emacs-lisp
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--pylab -i --simple-prompt"
-      )
 
  (defun my-inf-py-hook ()
         (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
