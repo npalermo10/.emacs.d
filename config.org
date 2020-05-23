@@ -410,7 +410,19 @@ setxkbmap -option ctrl:nocaps
 :ensure t
 :config
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'zenburn t)
+(load-theme 'tron-legacy t)
+)
+#+END_SRC
+* multiple cursors
+#+BEGIN_SRC emacs-lisp
+
+(use-package multiple-cursors
+:ensure t
+:config
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 )
 #+END_SRC
 * custom
