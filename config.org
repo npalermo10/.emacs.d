@@ -727,3 +727,26 @@ These things have to take the form:
 
 (require 'ssh)
 #+END_SRC
+* elfeed
+#+BEGIN_SRC emacs-lisp
+(use-package elfeed
+:ensure t
+:config
+    (global-set-key (kbd "C-x w") 'elfeed)
+    (setq elfeed-feeds
+      '(("https://www.reddit.com/r/politics/hot/.rss" reddit politics)
+        ("https://www.reddit.com/r/emacs/hot/.rss" reddit emacs)
+        ("https://www.reddit.com/r/gaming/hot/.rss" reddit gaming)
+        ("https://www.reddit.com/r/retrogaming/hot/.rss" reddit retrogaming)
+        ("https://www.reddit.com/r/Coronavirus/hot/.rss" reddit coronavirus)
+        ("https://www.reddit.com/r/AskReddit/hot/.rss"   reddit askreddit)
+        ("https://www.reddit.com/r/pics/hot/.rss" reddit pics)
+        ("https://www.reddit.com/r/videos/hot/.rss" reddit videos)
+        ("https://www.reddit.com/r/todayilearned/hot/.rss" reddit til)
+        ("https://www.reddit.com/r/announcements/hot/.rss" reddit announcements)))
+    ;; Entries older than 2 weeks are marked as read
+    (add-hook 'elfeed-new-entry-hook
+          (elfeed-make-tagger :before "1 day ago"
+                              :remove 'unread)))
+#+END_SRC
+
