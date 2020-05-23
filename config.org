@@ -293,31 +293,31 @@ setxkbmap -option ctrl:nocaps
 #+END_SRC
 ** initialize elpy
 #+BEGIN_SRC emacs-lisp
-    (use-package elpy  
-    :ensure t
-    :config 
-    (elpy-enable)
-    (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-    (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "--profile=my_pylab"
-                                            )
-    (key-chord-define-global ".3" 'ipython)
-    (defun my-elpy-hook ()
-        (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
-        (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
-        (local-set-key (kbd "M-t") 'elpy-nav-move-line-or-region-up)
-        (local-set-key (kbd "M-w") 'elpy-nav-move-line-or-region-down)
-        (local-set-key (kbd "M-r") 'elpy-nav-indent-shift-right)
-        (local-set-key (kbd "M-h") 'elpy-nav-indent-shift-left)
-        (local-set-key (kbd "C-c p") 'my-insert-pdb-break)
-        (local-set-key (kbd "C-c o") 'my-pdb-cleanup)
-        (local-set-key (kbd "C-c C-/")    'my-increment-number-decimal)
-        (local-set-key (kbd "C-c C-l")    'my-decrement-number-decimal)
-        (setq elpy-disable-backend-error-display 1)
-        )
-    (add-hook 'elpy-mode-hook 'my-elpy-hook)
-    
-   
+  (use-package elpy  
+  :ensure t
+  :config 
+  (elpy-enable)
+  (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+  (setq python-shell-interpreter "ipython"
+      ;; python-shell-interpreter-args "--profile=my_pylab"
+                                          )
+  (key-chord-define-global ".3" 'ipython)
+  (defun my-elpy-hook ()
+      (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
+      (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
+      (local-set-key (kbd "M-t") 'elpy-nav-move-line-or-region-up)
+      (local-set-key (kbd "M-w") 'elpy-nav-move-line-or-region-down)
+      (local-set-key (kbd "M-r") 'elpy-nav-indent-shift-right)
+      (local-set-key (kbd "M-h") 'elpy-nav-indent-shift-left)
+      (local-set-key (kbd "C-c p") 'my-insert-pdb-break)
+      (local-set-key (kbd "C-c o") 'my-pdb-cleanup)
+      (local-set-key (kbd "C-c C-/")    'my-increment-number-decimal)
+      (local-set-key (kbd "C-c C-l")    'my-decrement-number-decimal)
+      (setq elpy-disable-backend-error-display 1)
+      )
+  (add-hook 'elpy-mode-hook 'my-elpy-hook)
+
+
 #+END_SRC
 * ipython settings
 #+BEGIN_SRC emacs-lisp
