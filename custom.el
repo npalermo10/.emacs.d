@@ -92,7 +92,7 @@
      ("I" "#+INCLUDE: %file ?" "<include file=%file markup=\"?\">"))))
  '(package-selected-packages
    (quote
-    (hyperbole zotxt zotelo zenburn-theme wiki-summary web-mode use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit ledger-mode key-chord jedi impatient-mode helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode auctex arduino-mode ace-jump-mode)))
+    (elfeed-org elfeed-goodies hyperbole zotxt zotelo zenburn-theme wiki-summary web-mode use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit ledger-mode key-chord jedi impatient-mode helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode auctex arduino-mode ace-jump-mode)))
  '(py-shell-switch-buffers-on-execute nil)
  '(python-shell-buffer-name "ipython")
  '(send-mail-function (quote mailclient-send-it))
@@ -118,15 +118,10 @@
      (340 . "#94BFF3")
      (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "dark olive green" :foreground "black" :box (:line-width -1 :style released-button)))))
- '(org-block ((t (:inherit shadow :background "gray8"))))
- '(org-level-7 ((t (:foreground "violet red"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "OliveDrab2"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "medium orchid"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "cyan"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "salmon")))))
+ )
