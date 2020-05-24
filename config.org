@@ -416,6 +416,7 @@ setxkbmap -option ctrl:nocaps
 (use-package multiple-cursors
 :ensure t
 :config
+(multiple-cursors-mode 1)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
