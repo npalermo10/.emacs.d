@@ -406,12 +406,9 @@ setxkbmap -option ctrl:nocaps
 * themes
 #+BEGIN_SRC emacs-lisp
 
-(use-package zenburn-theme
-:ensure t
-:config
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'tron-legacy t)
-)
+
 #+END_SRC
 * multiple cursors
 #+BEGIN_SRC emacs-lisp
@@ -510,64 +507,6 @@ setxkbmap -option ctrl:nocaps
   (add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
   )
 #+END_SRC
-* org zot
-# #+BEGIN_SRC emacs-lisp
-# (use-package zotxt
-#     :ensure t
-#     :config 
-
-# ;; Activate org-zotxt-mode in org-mode buffers
-# (add-hook 'org-mode-hook (lambda () (org-zotxt-mode 1)))
-# ;; Bind something to replace the awkward C-u C-c " i
-# (define-key org-mode-map
-#   (kbd "C-c \" \"") (lambda () (interactive)
-#                       (org-zotxt-insert-reference-link '(4))))
-# ;; Change citation format to be less cumbersome in files.
-# ;; You'll need to install mkbehr-short into your style manager first.
-# (eval-after-load "zotxt"
-# '(setq zotxt-default-bibliography-style "mkbehr-short")))
-# ;;'(setq zotxt-default-bibliography-style "apa")))
-# #+END_SRC
-* easyPG
-# #+BEGIN_SRC emacs-lisp
-# (require 'epa-file)
-#     (epa-file-enable)
-# #+END_SRC
-* orgmobile
-# #+BEGIN_SRC emacs-lisp
-# (setq org-mobile-directory "/home/nick/Dropbox/org_agenda")
-# ;; moble sync
-# (defvar org-mobile-sync-timer nil)
-# (defvar org-mobile-sync-idle-secs (* 60 10))
-# (defun org-mobile-sync ()
-#   (interactive)
-#   (org-mobile-pull)
-#   (org-mobile-push))
-# (defun org-mobile-sync-enable ()
-#   "enable mobile org idle sync"
-#   (interactive)
-#   (setq org-mobile-sync-timer
-#         (run-with-idle-timer org-mobile-sync-idle-secs t
-#                              'org-mobile-sync)));
-# (defun org-mobile-sync-disable ()
-#   "disable mobile org idle sync"
-#   (interactive)
-#   (cancel-timer org-mobile-sync-timer))
-# (org-mobile-sync-enable)
-# #+END_SRC
-* ledger mode
-# #+BEGIN_SRC emacs-lisp
-# (use-package ledger-mode
-#     :ensure t
-#     :config 
-
-# (autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
-# (add-to-list 'load-path
-#              (expand-file-name "/path/to/ledger/source/lisp/"))
-# (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
-# (add-to-list 'auto-mode-alist '("\\.dat\\'" . ledger-mode))
-# )
-# #+END_SRC
 * PDF-tools
 ##+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
@@ -576,42 +515,6 @@ setxkbmap -option ctrl:nocaps
 (require 'pdf-tools)
 (pdf-tools-install)
 )
-##+END_SRC
-* ace jump mode
-##+BEGIN_SRC emacs-lisp
-(use-package ace-jump-mode
-:ensure t
-:config
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-;; you can select the key you prefer to
- (define-key global-map (kbd "C-c s") 'ace-jump-mode)
-)
-##+END_SRC
-* latex stuff
-** auctex
-##+BEGIN_SRC emacs-lisp
-(load "auctex.el" nil t t)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-##+END_SRC
-** reftex
-##+BEGIN_SRC emacs-lisp
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-;; So that RefTeX finds my bibliography
-(setq reftex-default-bibliography '("/home/nick/my_zotero.bib"))
-##+END_SRC
-** zotelo
-##+BEGIN_SRC emacs-lisp
-  (use-package zotelo
-  :ensure t
-  :config
-  (add-hook 'TeX-mode-hook 'zotelo-minor-mode))
 ##+END_SRC
 * my local keybindings
 ** the override keys
