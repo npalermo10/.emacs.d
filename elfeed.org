@@ -1,5 +1,5 @@
 * feeds :elfeed:
-** subreddit :subreddit:
+** subreddit :reddit:
 *** https://www.reddit.com/r/politics/hot/.rss :politics:
 *** https://www.reddit.com/r/emacs/hot/.rss :emacs:
 *** https://www.reddit.com/r/gaming/hot/.rss :gaming:
@@ -29,6 +29,11 @@
 ******* snes
 ******** https://www.youtube.com/feeds/videos.xml?user=1SNESdrunk 
 ******* https://www.youtube.com/feeds/videos.xml?user=MetalJesusRocks 
+******* https://www.youtube.com/feeds/videos.xml?user=JamesNintendoNerd
+******* https://www.youtube.com/feeds/videos.xml?user=mcfrosticles
+******* https://www.youtube.com/feeds/videos.xml?user=scottthewoz
+****** https://www.youtube.com/feeds/videos.xml?user=videogamedunkey
+****** https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle
 ** podcast :podcast: 
 *** http://lavenderhour.libsyn.co
 *** http://podcasts.joerogan.net/feed
@@ -39,10 +44,20 @@
 ***** https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss :imageoftheday:
 *** https://www.newyorker.com/feed/everything :newyorker:
 ** news :news:
-*** https://archive.nytimes.com/www.nytimes.com/services/xml/rss/index.html?mcubz=0
 *** https://www.bbc.com/news/10628494 
 *** https://feeds.npr.org/1001/rss.xml
 *** https://www.businessinsider.com/rss?op=1
 *** https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=rss&categories=Published&notcategories=No%20publish%7CArchived%7cAutoArchived%7cdisputed&namespace=0&count=15&ordermethod=categoryadd&stablepages=only
 *** https://www.buzzfeed.com/world.xml
 *** http://www.newyorker.com/feed/news
+*** https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+*** https://www.sciencedaily.com/rss/top.xml
+*** science news :science: 
+**** https://www.sciencedaily.com/rss/top/science.xml
+**** https://rss.nytimes.com/services/xml/rss/nyt/Science.xml
+**** https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml
+**** https://rss.nytimes.com/services/xml/rss/nyt/Space.xml
+*** politics :politics:
+**** http://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2
+**** http://thehill.com/rss/syndicator/19110
+**** https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml
