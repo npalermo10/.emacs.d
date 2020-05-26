@@ -636,9 +636,44 @@ These things have to take the form:
   (use-package elfeed
   :ensure t
   :config
-  (setq-default elfeed-search-filter "@1-month-ago +unread")
+  (setq-default elfeed-search-filter "@3-weeks-ago +unread")
   (global-set-key (kbd "C-x w") 'elfeed)
-   )
+
+  (defun elfeed-show-eww-open (&optional use-generic-p)
+  "open with eww"
+  (interactive "P")
+  (let ((browse-url-browser-function #'eww-browse-url))
+    (elfeed-show-visit use-generic-p)))
+
+  (defun elfeed-search-eww-open (&optional use-generic-p)
+  "open with eww"
+  (interactive "P")
+  (let ((browse-url-browser-function #'eww-browse-url))
+    (elfeed-search-browse-url use-generic-p)))
+
+  ;;lazy elfeed scroll and new page
+  (defun elfeed-scroll-up-command (&optional arg)
+    "Scroll up or go to next feed item in Elfeed"
+    (interactive "^P")
+    (let ((scroll-error-top-bottom nil))
+      (condition-case-unless-debug nil
+          (scroll-up-command arg)
+        (error (elfeed-show-next)))))
+  
+  (defun elfeed-scroll-down-command (&optional arg)
+    "Scroll up or go to next feed item in Elfeed"
+    (interactive "^P")
+    (let ((scroll-error-top-bottom nil))
+      (condition-case-unless-debug nil
+          (scroll-down-command arg)
+        (error (elfeed-show-prev)))))
+  :bind
+      (:map elfeed-show-mode-map
+           ("B" . elfeed-show-eww-open)
+           ("SPC" . elfeed-scroll-up-command)
+           ("S-SPC" . elfeed-scroll-down-command))
+      (:map elfeed-search-mode-map
+           ("B" . elfeed-search-eww-open)))
 
   (use-package elfeed-goodies
   :ensure t
