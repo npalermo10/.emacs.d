@@ -8,6 +8,9 @@
  '(custom-safe-themes
    (quote
     ("024efcde8a841ff45df8b871d5b693d4c9a7e03f0a02a1af496e79acb5e2f745" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" default)))
+ '(elfeed-goodies/entry-pane-position (quote bottom))
+ '(elfeed-goodies/entry-pane-size 0.7)
+ '(elfeed-goodies/tag-column-width 10)
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
