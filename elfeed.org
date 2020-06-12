@@ -17,23 +17,34 @@
 ** video :video:
 *** youtube :yt:  
 ***** politics :politics:
-****** https://www.youtube.com/feeds/videos.xml?user=LastWeekTonight
-****** https://www.youtube.com/feeds/videos.xml?user=RealTime
-***** https://www.youtube.com/feeds/videos.xml?user=adric22
+******* https://www.youtube.com/feeds/videos.xml?user=RealTime
+****** comedy :comedy:
+******* https://www.youtube.com/feeds/videos.xml?user=LastWeekTonight
+******* https://www.youtube.com/feeds/videos.xml?user=victheiv 
+******* https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig
+***** science :science:
+****** https://www.youtube.com/feeds/videos.xml?user=enyay
 ***** gaming :gaming:
+****** https://www.youtube.com/feeds/videos.xml?user=videogamedunkey
+****** https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle
+****** https://www.youtube.com/feeds/videos.xml?user=gamesdonequick
 ****** mario maker :mariomaker:
 ******* https://www.youtube.com/feeds/videos.xml?user=CarlSagan42
 ******* https://www.youtube.com/feeds/videos.xml?user=ryukhar
 ******* https://www.youtube.com/feeds/videos.xml?user=nilladh      
-****** retro :retrogaming:
+****** retro :retro:
 ******* snes
 ******** https://www.youtube.com/feeds/videos.xml?user=1SNESdrunk 
 ******* https://www.youtube.com/feeds/videos.xml?user=MetalJesusRocks 
 ******* https://www.youtube.com/feeds/videos.xml?user=JamesNintendoNerd
 ******* https://www.youtube.com/feeds/videos.xml?user=mcfrosticles
 ******* https://www.youtube.com/feeds/videos.xml?user=scottthewoz
-****** https://www.youtube.com/feeds/videos.xml?user=videogamedunkey
-****** https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle
+******* https://www.youtube.com/feeds/videos.xml?user=phreakindee
+**** podcast :podcast:
+****** https://www.youtube.com/feeds/videos.xml?user=PowerfulJRE
+***** retro :retro:
+****** https://www.youtube.com/feeds/videos.xml?user=adric22
+****** https://www.youtube.com/feeds/videos.xml?user=phreakindee
 ** podcast :podcast: 
 *** http://lavenderhour.libsyn.co
 *** http://podcasts.joerogan.net/feed
@@ -42,7 +53,9 @@
 **** nasa 
 ***** https://www.nasa.gov/rss/dyn/breaking_news.rss :breakingnews:
 ***** https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss :imageoftheday:
-*** https://www.newyorker.com/feed/everything :newyorker:
+*** https://www.newyorker.com/feed/everything :newyorker:news:
+*** linux :linux:
+**** http://feeds.feedburner.com/d0od?format=xml
 ** news :news:
 *** https://www.bbc.com/news/10628494 
 *** https://feeds.npr.org/1001/rss.xml
@@ -52,6 +65,7 @@
 *** http://www.newyorker.com/feed/news
 *** https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
 *** https://www.sciencedaily.com/rss/top.xml
+*** https://feeds.foxnews.com/foxnews/latest :fox:
 *** science news :science: 
 **** https://www.sciencedaily.com/rss/top/science.xml
 **** https://rss.nytimes.com/services/xml/rss/nyt/Science.xml
@@ -61,3 +75,4 @@
 **** http://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2
 **** http://thehill.com/rss/syndicator/19110
 **** https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml
+**** 
