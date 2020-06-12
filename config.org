@@ -202,6 +202,9 @@ setxkbmap -option ctrl:nocaps
   (show-paren-mode t)
 (setq line-number-mode t)                     ;start in line-number-mode
 (setq column-number-mode t)                   ;start in column-number-mode
+(use-package rainbow-delimiters
+:config
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
@@ -429,40 +432,6 @@ setxkbmap -option ctrl:nocaps
 (load custom-file)
 #+END_SRC
 
-* Arduino mode
-# #+BEGIN_SRC emacs-lisp
-# ;(use-package arduino-mode
-# ;:ensure t
-# ;)
-# #+END_SRC
-* yasnippet
-# #+BEGIN_SRC emacs-lisp
-
-
-# (use-package yasnippet
-# :ensure t
-# :config
-# (yas-global-mode 1)
-# (define-key yas-minor-mode-map [(tab)] nil)
-# (define-key yas-minor-mode-map (kbd "TAB") nil)
-# (define-key yas-minor-mode-map (kbd "C-x C-y") 'yas-expand))
-
-# ;;; auto complete mod
-# ;;; should be loaded after yasnippet so that they can work together
-# (use-package auto-complete-config
-# :config
-# (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-# (ac-config-default)
-# (ac-set-trigger-key "TAB")
-# (ac-set-trigger-key "<tab>")
-# )
-
-
-
-# ;;; set the trigger key so that it can work together with yasnippet on tab key,
-# ;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
-# ;;; activate, otherwise, auto-complete will
-# #+END_SRC
 * Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
@@ -499,24 +468,6 @@ setxkbmap -option ctrl:nocaps
 (add-hook 'helm-mode-hook 'helm-override-keys)
 
 #+END_SRC
-* Rainbow parenthesis matching
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
-  )
-#+END_SRC
-* PDF-tools
-##+BEGIN_SRC emacs-lisp
-(use-package pdf-tools
-:ensure t
-:config
-(require 'pdf-tools)
-(pdf-tools-install)
-)
-##+END_SRC
 * my local keybindings
 ** the override keys
 #+BEGIN_SRC emacs-lisp
