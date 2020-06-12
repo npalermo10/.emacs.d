@@ -468,6 +468,15 @@ setxkbmap -option ctrl:nocaps
 (add-hook 'helm-mode-hook 'helm-override-keys)
 
 #+END_SRC
+* Rainbow parenthesis matching
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
+  )
+#+END_SRC
 * my local keybindings
 ** the override keys
 #+BEGIN_SRC emacs-lisp
