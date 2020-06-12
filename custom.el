@@ -127,4 +127,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(elfeed-search-feed-face ((t (:foreground "pale green"))))
+ '(elfeed-search-tag-face ((t (:foreground "SkyBlue4"))))
+ '(elfeed-search-title-face ((t (:foreground "gray70")))))
