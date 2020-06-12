@@ -203,6 +203,7 @@ setxkbmap -option ctrl:nocaps
 (setq line-number-mode t)                     ;start in line-number-mode
 (setq column-number-mode t)                   ;start in column-number-mode
 (use-package rainbow-delimiters
+:ensure t
 :config
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
@@ -467,15 +468,6 @@ setxkbmap -option ctrl:nocaps
 
 (add-hook 'helm-mode-hook 'helm-override-keys)
 
-#+END_SRC
-* Rainbow parenthesis matching
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'arduino-mode-hook 'rainbow-delimiters-mode)
-  )
 #+END_SRC
 * my local keybindings
 ** the override keys
