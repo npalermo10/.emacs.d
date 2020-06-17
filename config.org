@@ -702,3 +702,50 @@ These things have to take the form:
 
 
 #+END_SRC
+* org roam
+#+BEGIN_SRC emacs-lisp
+
+(use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "/home/nick/org/")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-show-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
+#+END_SRC
+* bibtex/org-ref 
+    #+BEGIN_SRC emacs-lisp
+    (use-package org-roam-bibtex
+      :ensure t  
+      :after org-roam
+      :hook (org-roam-mode . org-roam-bibtex-mode)
+      :bind (:map org-mode-map
+         (("C-c n a" . orb-note-actions))))
+
+
+      (use-package helm-bibtex
+             :ensure t
+             :config
+             (setq bibtex-completion-bibliography
+             '("/home/nick/org/bibliography/MyLibrary.bib"))
+             (setq bibtex-completion-pdf-field "File")
+             (setq bibtex-completion-notes-path "/home/nick/org/bibliography/helm-bibtex-notes/notes.org"))
+
+
+       (use-package org-ref
+             :ensure t
+             :config
+             (setq reftex-default-bibliography '("/home/nick/.emacs.d/MyLibrary.bib")
+               org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
+
+           ;; see org-ref for use of these variables
+           (setq org-ref-bibliography-notes "/home/nick/org/bibliography/helm-bibtex-notes/notes.org"
+             org-ref-default-bibliography '("/home/nick/org/bibliography/MyLibrary.bib")
+                 ))
+
+#+END_SRC
