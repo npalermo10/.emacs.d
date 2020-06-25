@@ -239,7 +239,7 @@ setxkbmap -option ctrl:nocaps
     (while (pcomplete-here (pcomplete-entries)))))
 
 (setq eshell-cmpl-cycle-completions nil)
-
+(setq tooltip-delay 3)
 ;;tab key fix
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
