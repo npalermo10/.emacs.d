@@ -188,6 +188,14 @@ My own personal emacs config
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
+** my kbd macros
+#+BEGIN_SRC emacs-lisp
+
+(fset 'start_hcube_venv_and_test
+   [?\M-x ?f ?i ?n ?d ?  ?f ?i ?l ?e return ?\C-x ?\C-m ?\M-w ?/ ?h ?o ?m ?e ?/ ?n ?i ?c ?k ?/ ?p ?y ?t ?h ?o ?n ?_ ?s ?c ?r ?i ?p ?t ?s ?/ ?h ?o ?l ?o ?c ?u ?b ?e ?/ ?t ?e ?s ?t ?. ?p ?y return ?\M-x ?p ?y ?v ?e ?n ?v ?- ?w ?o ?r ?k ?o ?n return return])
+(global-set-key (kbd "C-x C-k v") 'start_hcube_venv_and_test)
+#+END_SRC
+
 * shell commands to run at startup
 #+BEGIN_SRC sh
 setxkbmap -option ctrl:nocaps  
@@ -705,6 +713,11 @@ These things have to take the form:
 * org roam
 #+BEGIN_SRC emacs-lisp
 
+
+(fset 'insert_roam_alias
+   [?\C-x ?\C-t ?\C-x ?\C-n return ?# ?+ ?r ?o ?a ?m ?_ ?a ?l ?i ?a ?s ?: ? ])
+
+    
 (use-package org-roam
       :ensure t
       :hook
