@@ -14,37 +14,38 @@
 ** comic :comic:
 *** https://xkcd.com/rss.xml 
 
-** video :video:
-*** youtube :yt:  
-***** politics :politics:
-******* https://www.youtube.com/feeds/videos.xml?user=RealTime
-****** comedy :comedy:
-******* https://www.youtube.com/feeds/videos.xml?user=LastWeekTonight
-******* https://www.youtube.com/feeds/videos.xml?user=victheiv 
-******* https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig
-***** science :science:
-****** https://www.youtube.com/feeds/videos.xml?user=enyay
-***** gaming :gaming:
-****** https://www.youtube.com/feeds/videos.xml?user=videogamedunkey
-****** https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle
-****** https://www.youtube.com/feeds/videos.xml?user=gamesdonequick
-****** mario maker :mariomaker:
-******* https://www.youtube.com/feeds/videos.xml?user=CarlSagan42
-******* https://www.youtube.com/feeds/videos.xml?user=ryukhar
-******* https://www.youtube.com/feeds/videos.xml?user=nilladh      
-****** retro :retro:
-******* snes
-******** https://www.youtube.com/feeds/videos.xml?user=1SNESdrunk 
-******* https://www.youtube.com/feeds/videos.xml?user=MetalJesusRocks 
-******* https://www.youtube.com/feeds/videos.xml?user=JamesNintendoNerd
-******* https://www.youtube.com/feeds/videos.xml?user=mcfrosticles
-******* https://www.youtube.com/feeds/videos.xml?user=scottthewoz
-******* https://www.youtube.com/feeds/videos.xml?user=phreakindee
-**** podcast :podcast:
-****** https://www.youtube.com/feeds/videos.xml?user=PowerfulJRE
+** video :yt:
+*** politics :politics:
+**** comedy :comedy:
+***** https://www.youtube.com/feeds/videos.xml?user=LastWeekTonight
+***** https://www.youtube.com/feeds/videos.xml?user=victheiv 
+***** https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig
+**** https://www.youtube.com/feeds/videos.xml?user=RealTime
+*** science :science:
+**** https://www.youtube.com/feeds/videos.xml?user=enyay
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UCy0tKL1T7wFoYcxCe0xjN6Q
+*** gaming :gaming:
+***** https://www.youtube.com/feeds/videos.xml?user=videogamedunkey
+***** https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle
+***** https://www.youtube.com/feeds/videos.xml?user=gamesdonequick
+***** mario maker :mariomaker:
+****** https://www.youtube.com/feeds/videos.xml?user=CarlSagan42
+****** https://www.youtube.com/feeds/videos.xml?user=ryukhar
+****** https://www.youtube.com/feeds/videos.xml?user=nilladh      
 ***** retro :retro:
-****** https://www.youtube.com/feeds/videos.xml?user=adric22
+****** snes
+******* https://www.youtube.com/feeds/videos.xml?user=1SNESdrunk 
+****** https://www.youtube.com/feeds/videos.xml?user=MetalJesusRocks 
+****** https://www.youtube.com/feeds/videos.xml?user=JamesNintendoNerd
+****** https://www.youtube.com/feeds/videos.xml?user=mcfrosticles
+****** https://www.youtube.com/feeds/videos.xml?user=scottthewoz
 ****** https://www.youtube.com/feeds/videos.xml?user=phreakindee
+****** https://www.youtube.com/feeds/videos.xml?user=Darkmario1LPs
+*** podcast :podcast:
+**** https://www.youtube.com/feeds/videos.xml?user=PowerfulJRE
+*** retro :retro:
+**** https://www.youtube.com/feeds/videos.xml?user=adric22
+**** https://www.youtube.com/feeds/videos.xml?user=phreakindee
 ** podcast :podcast: 
 *** http://lavenderhour.libsyn.co
 *** http://podcasts.joerogan.net/feed
@@ -66,6 +67,7 @@
 *** https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
 *** https://www.sciencedaily.com/rss/top.xml
 *** https://feeds.foxnews.com/foxnews/latest :fox:
+*** https://www.theatlantic.com/feed/all/
 *** science news :science: 
 **** https://www.sciencedaily.com/rss/top/science.xml
 **** https://rss.nytimes.com/services/xml/rss/nyt/Science.xml
