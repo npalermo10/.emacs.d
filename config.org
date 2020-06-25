@@ -146,12 +146,6 @@ My own personal emacs config
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
 #+END_SRC
-** Macros
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x C-,") 'kmacro-start-macro)
-(global-set-key (kbd "C-x C-.") 'kmacro-end-macro)
-(global-set-key (kbd "C-x C-/") 'kmacro-end-and-call-macro)
-#+END_SRC
 ** my custom functions
 #+BEGIN_SRC emacs-lisp
 (global-set-key "\C-c i d"    'my-insert-date)
