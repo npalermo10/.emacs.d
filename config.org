@@ -726,7 +726,31 @@ These things have to take the form:
                ("C-c n f" . org-roam-find-file)
                ("C-c n g" . org-roam-show-graph))
               :map org-mode-map
-              (("C-c n i" . org-roam-insert))))
+              (("C-c n i" . org-roam-insert)
+                ("C-c n t" . insert_roam_alias)))
+      :config (setq org-roam-buffer-no-delete-other-windows t))
+
+(use-package deft
+  :ensure t
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "/home/nick/org/"))
+
+(use-package org-journal
+  :ensure t
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  :custom
+  (org-journal-date-prefix "#+title: ")
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-dir "/home/nick/org")
+  (org-journal-date-format "%A, %d %B %Y"))
+
 #+END_SRC
 * bibtex/org-ref 
     #+BEGIN_SRC emacs-lisp
