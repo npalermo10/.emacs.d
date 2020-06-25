@@ -666,20 +666,21 @@ These things have to take the form:
   ;; the 'All Mail' folder by pressing ``ma''.
 
   ;; (setq mu4e-maildir-shortcuts
-  ;;     '( (:maildir "/INBOX"              :key ?i)
-  ;;        (:maildir "/[Gmail].Sent Mail"  :key ?s)
-  ;;        (:maildir "/[Gmail].Trash"      :key ?t)
-  ;;        (:maildir "/[Gmail].All Mail"   :key ?a)))
+  ;;      '( (:maildir "/INBOX"              :key ?i)
+  ;;         (:maildir "/[Gmail].Sent Mail"  :key ?s)
+  ;;         (:maildir "/[Gmail].Trash"      :key ?t)
+  ;;         (:maildir "/[Gmail].All Mail"   :key ?a)))
 
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap")
+  ;;   allow  for updating mail using 'U' in the main view:
+  (setq mu4e-get-mail-command "offlineimap"
+      mu4e-update-interval 180)
 
-  ;; something about ourselves
+  (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill);; something about ourselves
   (setq
      user-mail-address "npalermo10@gmail.com"
      user-full-name  "Nicholas Palermo"
      )
-
+  (setq mu4e-attachment-dir "~/downloads")
   ;; sending mail -- replace USERNAME with your gmail username
   ;; also, make sure the gnutls command line utils are installed
   ;; package 'gnutls-bin' in Debian/Ubuntu
