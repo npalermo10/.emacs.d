@@ -253,7 +253,9 @@ setxkbmap -option ctrl:nocaps
 :ensure t
 :config
 (openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+(setq openwith-associations '(("\\.pdf\\'" "evince" (file))
+                              ("\\.docx\\'" "libreoffice" (file))
+))
 )
 #+END_SRC
 
