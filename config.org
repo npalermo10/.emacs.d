@@ -1,5 +1,4 @@
 My own personal emacs config
-- Remember to use "<s tab" then use "emacs-lisp" to create source blocks 
 * my own navigation/kill/yank/insert/etc. functions
 #+BEGIN_SRC emacs-lisp
 ;; functions
