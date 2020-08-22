@@ -8,6 +8,55 @@
  '(custom-safe-themes
    (quote
     ("024efcde8a841ff45df8b871d5b693d4c9a7e03f0a02a1af496e79acb5e2f745" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" default)))
+ '(elfeed-feeds
+   (quote
+    ("https://www.washingtonpost.com/politics/biden-campaign-confirms-he-will-attend-three-debates-with-trump-criticizes-the-president-for-flipping-on-his-debate-stance/2020/06/22/b48be3a0-b49a-11ea-a510-55bf26485c93_story.html?utm_source=rss&utm_medium=referral&utm_campaign=wp_politics"
+     ("https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml" news politics)
+     ("http://thehill.com/rss/syndicator/19110" news politics)
+     ("http://feeds.washingtonpost.com/rss/politics?itid=lk_inline_manual_2" news politics)
+     ("https://rss.nytimes.com/services/xml/rss/nyt/Space.xml" news science)
+     ("https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml" news science)
+     ("https://rss.nytimes.com/services/xml/rss/nyt/Science.xml" news science)
+     ("https://www.sciencedaily.com/rss/top/science.xml" news science)
+     ("https://www.theatlantic.com/feed/all/" news)
+     ("https://feeds.foxnews.com/foxnews/latest" news fox)
+     ("https://www.sciencedaily.com/rss/top.xml" news)
+     ("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news)
+     ("http://www.newyorker.com/feed/news" news)
+     ("https://www.buzzfeed.com/world.xml" news)
+     ("https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=rss&categories=Published&notcategories=No%20publish%7CArchived%7cAutoArchived%7cdisputed&namespace=0&count=15&ordermethod=categoryadd&stablepages=only" news)
+     ("https://www.businessinsider.com/rss?op=1" news)
+     ("https://feeds.npr.org/1001/rss.xml" news)
+     ("https://www.bbc.com/news/10628494" news)
+     ("http://feeds.feedburner.com/d0od?format=xml" blog linux)
+     ("https://www.newyorker.com/feed/everything" blog newyorker news)
+     ("https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" blog science imageoftheday)
+     ("https://www.nasa.gov/rss/dyn/breaking_news.rss" blog science breakingnews)
+     ("http://podcasts.joerogan.net/feed" podcast)
+     ("http://lavenderhour.libsyn.co" podcast)
+     ("https://www.youtube.com/feeds/videos.xml?user=phreakindee" retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=adric22" retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=PowerfulJRE" podcast)
+     ("https://www.youtube.com/feeds/videos.xml?user=Darkmario1LPs" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=phreakindee" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=scottthewoz" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=mcfrosticles" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=JamesNintendoNerd" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=MetalJesusRocks" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=1SNESdrunk" gaming retro)
+     ("https://www.youtube.com/feeds/videos.xml?user=nilladh" gaming mariomaker)
+     ("https://www.youtube.com/feeds/videos.xml?user=ryukhar" gaming mariomaker)
+     ("https://www.youtube.com/feeds/videos.xml?user=CarlSagan42" gaming mariomaker)
+     ("https://www.youtube.com/feeds/videos.xml?user=gamesdonequick" gaming)
+     ("https://www.youtube.com/feeds/videos.xml?user=PencakeAndWuffle" gaming)
+     ("https://www.youtube.com/feeds/videos.xml?user=videogamedunkey" gaming)
+     ("https://www.youtube.com/feeds/videos.xml?channel_id=UCy0tKL1T7wFoYcxCe0xjN6Q" science)
+     ("https://www.youtube.com/feeds/videos.xml?user=enyay" science)
+     ("https://www.youtube.com/feeds/videos.xml?user=RealTime" yt)
+     ("https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig" yt politics comedy)
+     ("https://www.youtube.com/feeds/videos.xml?user=victheiv" yt politics comedy)
+     ("https://www.youtube.com/feeds/videos.xml?user=LastWeekTonight" yt politics comedy)
+     ("https://xkcd.com/rss.xml" comic))))
  '(elfeed-goodies/entry-pane-position (quote bottom))
  '(elfeed-goodies/entry-pane-size 0.7)
  '(elfeed-goodies/tag-column-width 10)
@@ -19,83 +68,17 @@
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(erc-nick "synthstutter")
  '(fci-rule-color "#383838")
- '(org-capture-templates
+ '(org-agenda-files
    (quote
-    (("b" "buy list" entry
-      (file "~/org/agenda/buy.org")
-      "")
-     ("Q" "qbic" entry
-      (file "~/org/agenda/qbic.org")
-      "")
-     ("s" "school" entry
-      (file "~/org/agenda/school.org")
-      "")
-     ("w" "work" entry
-      (file "~/org/agenda/work.org")
-      "")
-     ("h" "home" entry
-      (file "~/org/agenda/home.org")
-      "")
-     ("l" "lab" entry
-      (file "~/org/agenda/lab.org")
-      ""))))
+    ("~/org/agenda/todo.org" "~/syncthing_nick/org/dupont_many_1994.org" "~/syncthing_nick/org/20200617141328-qbic_journal_club.org" "~/syncthing_nick/org/20200615181734-plumes.org" "~/org/agenda/work.org" "~/org/agenda/buy.org" "~/org/agenda/school.org" "~/org/agenda/home.org" "~/org/agenda/lab.org" "~/org/agenda/qbic.org")))
  '(org-catch-invisible-edits (quote error))
- '(org-structure-template-alist
+ '(org-format-latex-options
    (quote
-    (("p" "#+BEGIN_SRC python :results output
-?
-#+END_SRC " "")
-     ("s" "#+BEGIN_SRC ?
-
-#+END_SRC" "<src lang=\"?\">
-
-</src>")
-     ("e" "#+BEGIN_EXAMPLE
-?
-#+END_EXAMPLE" "<example>
-?
-</example>")
-     ("q" "#+BEGIN_QUOTE
-?
-#+END_QUOTE" "<quote>
-?
-</quote>")
-     ("v" "#+BEGIN_VERSE
-?
-#+END_VERSE" "<verse>
-?
-</verse>")
-     ("V" "#+BEGIN_VERBATIM
-?
-#+END_VERBATIM" "<verbatim>
-?
-</verbatim>")
-     ("c" "#+BEGIN_CENTER
-?
-#+END_CENTER" "<center>
-?
-</center>")
-     ("l" "#+BEGIN_LaTeX
-?
-#+END_LaTeX" "<literal style=\"latex\">
-?
-</literal>")
-     ("L" "#+LaTeX: " "<literal style=\"latex\">?</literal>")
-     ("h" "#+BEGIN_HTML
-?
-#+END_HTML" "<literal style=\"html\">
-?
-</literal>")
-     ("H" "#+HTML: " "<literal style=\"html\">?</literal>")
-     ("a" "#+BEGIN_ASCII
-?
-#+END_ASCII" "")
-     ("A" "#+ASCII: " "")
-     ("i" "#+INDEX: ?" "#+INDEX: ?")
-     ("I" "#+INCLUDE: %file ?" "<include file=%file markup=\"?\">"))))
+    (:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+		 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (elfeed-org elfeed-goodies hyperbole zotxt zotelo zenburn-theme wiki-summary web-mode use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit ledger-mode key-chord jedi impatient-mode helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode auctex arduino-mode ace-jump-mode)))
+    (yasnippet-snippets doom-modeline openwith org-ref helm-bibtex org-roam-bibtex org-journal deft org-roam tron-legacy-theme ssh elfeed-org elfeed-goodies hyperbole use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit key-chord helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode)))
  '(py-shell-switch-buffers-on-execute nil)
  '(python-shell-buffer-name "ipython")
  '(send-mail-function (quote mailclient-send-it))
@@ -129,4 +112,8 @@
  ;; If there is more than one, they won't work right.
  '(elfeed-search-feed-face ((t (:foreground "pale green"))))
  '(elfeed-search-tag-face ((t (:foreground "SkyBlue4"))))
- '(elfeed-search-title-face ((t (:foreground "gray70")))))
+ '(elfeed-search-title-face ((t (:foreground "gray70"))))
+ '(highlight-indent-guides-character-face ((t (:foreground "#2f4f4f"))))
+ '(highlight-indent-guides-top-character-face ((t (:foreground "#4682b4"))))
+ '(highlight-indentation-face ((t (:foreground "#2f4f4f"))))
+ '(org-block ((t (:background "black" :foreground "#8BaCbF")))))
