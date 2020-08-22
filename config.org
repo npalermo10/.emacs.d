@@ -31,7 +31,7 @@ My own personal emacs config
    two prefix arguments, write out the day and month name."
     (interactive "P")
     (let ((format (cond
-                   ((not prefix) "%Y-%m-%d %H:%M") 
+                   ((not prefix) "%Y-%m-%d %H:%M")
                    ((equal prefix '(4)) "%Y-%m-%d")
                    ((equal prefix '(16)) "%A, %d. %B %Y")))
           )
@@ -43,14 +43,14 @@ My own personal emacs config
 
 (defun my-insert-file-name (filename &optional args)
     "Insert name of file FILENAME into buffer after point.
-  
+
   Prefixed with \\[universal-argument], expand the file name to
   its fully canocalized path.  See `expand-file-name'.
-  
+
   Prefixed with \\[negative-argument], use relative path to file
   name from current directory, `default-directory'.  See
   `file-relative-name'.
-  
+
   The default with no prefix is to insert the file name exactly as
   it appears in the minibuffer prompt."
     ;; Based on insert-file in Emacs -- ashawley 20080926
@@ -147,17 +147,13 @@ My own personal emacs config
 #+END_SRC
 ** my custom functions
 #+BEGIN_SRC emacs-lisp
-(global-set-key "\C-c i d"    'my-insert-date)
-(global-set-key "\C-c i f" 'my-insert-file-name)
-(global-set-key "\C-c n"    'cleanup-buffer)
-
 (defun my-increment-number-decimal (&optional arg)
   "Increment the number forward from point by 'arg'."
   (interactive "p*")
   (save-excursion
     (save-match-data
       (let (inc-by field-width answer)
-        (setq inc-by (if arg arg 1))
+        (setq inc-by (if arg arg 2))
         (skip-chars-backward "0123456789")
         (when (re-search-forward "[0-9]+" nil t)
           (setq field-width (- (match-end 0) (match-beginning 0)))
@@ -171,15 +167,10 @@ My own personal emacs config
   (interactive "p*")
   (my-increment-number-decimal (if arg (- arg) -1)))
 
-
 #+END_SRC
 ** unset keybindings
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-c C-s"))
-#+END_SRC
-** org links
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
 ** my kbd macros
 #+BEGIN_SRC emacs-lisp
@@ -191,71 +182,93 @@ My own personal emacs config
 
 * shell commands to run at startup
 #+BEGIN_SRC sh
-setxkbmap -option ctrl:nocaps  
+setxkbmap -option ctrl:nocaps
 #+END_SRC
 * Emacs appearece menu,toolbar,scrollbar
 #+BEGIN_SRC emacs-lisp
-  (menu-bar-mode -1) 
-  (toggle-scroll-bar -1) 
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (scroll-bar-mode -1)
-  (show-paren-mode t)
-(setq line-number-mode t)                     ;start in line-number-mode
-(setq column-number-mode t)                   ;start in column-number-mode
-(use-package rainbow-delimiters
-:ensure t
-:config
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    (menu-bar-mode -1)
+    (toggle-scroll-bar -1)
+    (tool-bar-mode -1)
+    (tooltip-mode -1)
+    (scroll-bar-mode -1)
+    (show-paren-mode t)
+  (setq line-number-mode t)                     ;start in line-number-mode
+  (setq column-number-mode t)                   ;start in column-number-mode
+  (use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+
+  (use-package highlight-indent-guides
+    :ensure t
+    :custom
+    (highlight-indent-guides-method 'character)
+    (highlight-indent-guides-responsive 'top)
+    (highlight-indent-guides-auto-enabled nil)
+    :custom-face
+      (highlight-indent-guides-character-face ((t (:foreground ,"#2f4f4f"))))
+      (highlight-indent-guides-top-character-face ((t (:foreground ,"#4682b4"))))
+      (highlight-indentation-face ((t (:foreground ,"#2f4f4f"))))
+
+    :hook
+    (prog-mode . highlight-indent-guides-mode))
 #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
-(tooltip-mode nil)                      ; one-line help text in the echo area
-(electric-indent-mode 1)
+  (tooltip-mode nil)                      ; one-line help text in the echo area
+  (electric-indent-mode 1)
 
-;;dont have to use "yes" or "no" instead use "y" or "n"
-(defalias 'yes-or-no-p 'y-or-n-p)
+  ;;dont have to use "yes" or "no" instead use "y" or "n"
+  (defalias 'yes-or-no-p 'y-or-n-p)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;; emacs autocomplete with tab;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook
- 'eshell-mode-hook
- (lambda ()
-   (setq pcomplete-cycle-completions nil)))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;; emacs autocomplete with tab;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (add-hook
+   'eshell-mode-hook
+   (lambda ()
+     (setq pcomplete-cycle-completions nil)))
 
-(autoload 'bash-completion-dynamic-complete 
-   "bash-completion"
-   "BASH completion hook")
- (add-hook 'shell-dynamic-complete-functions
-   'bash-completion-dynamic-complete)
+  (autoload 'bash-completion-dynamic-complete
+     "bash-completion"
+     "BASH completion hook")
+   (add-hook 'shell-dynamic-complete-functions
+     'bash-completion-dynamic-complete)
 
-;;;; sudo completion
-(defun pcomplete/sudo ()
-  "Completion rules for the `sudo' command."
-  (let ((pcomplete-ignore-case t))
-    (pcomplete-here (funcall pcomplete-command-completion-function))
-    (while (pcomplete-here (pcomplete-entries)))))
+  ;;;; sudo completion
+  (defun pcomplete/sudo ()
+    "Completion rules for the `sudo' command."
+    (let ((pcomplete-ignore-case t))
+      (pcomplete-here (funcall pcomplete-command-completion-function))
+      (while (pcomplete-here (pcomplete-entries)))))
 
-(setq eshell-cmpl-cycle-completions nil)
-(setq tooltip-delay 3)
-;;tab key fix
-(setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+  (setq eshell-cmpl-cycle-completions nil)
+  (setq tooltip-delay 3)
+  ;;tab key fix
+  (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
-(use-package smartparens
-:ensure t
-:config 
-(smartparens-global-mode 1)
-)
+  (use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode 1)
+  )
 
-(use-package openwith
-:ensure t
-:config
-(openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "evince" (file))
-                              ("\\.docx\\'" "libreoffice" (file))
-))
-)
+  (use-package openwith
+  :ensure t
+  :config
+  (openwith-mode t)
+  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))
+                                ("\\.docx\\'" "libreoffice" (file))
+                                ("\\.odp\\'" "libreoffice" (file))
+                                ("\\.odt\\'" "libreoffice" (file))
+                                ("\\.MOV\\'" "totem" (file))
+  ))
+  )
+
+;; prevent <openwith> from interfering with mail attachments
+(require 'mm-util)
+(add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
 #+END_SRC
 
 * speed up startup
@@ -281,34 +294,31 @@ setxkbmap -option ctrl:nocaps
 :ensure t
 :config
 (key-chord-mode 1)
-
 )
 #+END_SRC
 * Python-elpy
 ** My pdb functions
 - in order to make these functions work I need to import all of python mode.. Its ridiculous
 #+BEGIN_SRC emacs-lisp
-(use-package python-mode 
+(use-package python-mode
      :ensure t
 
 )
-#+END_SRC
-- now we import my functions
-#+BEGIN_SRC emacs-lisp
+
 (require 'pdb_emacs.el)
 
 #+END_SRC
 ** initialize elpy
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy  
+  (use-package elpy
   :ensure t
-  :config 
+  :config
   (elpy-enable)
   (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-  (setq python-shell-interpreter "ipython"
+  (setq python-shell-interpreter "ipython3"
       ;; python-shell-interpreter-args "--profile=my_pylab"
                                           )
-  (key-chord-define-global ".3" 'ipython)
+  (key-chord-define-global ".3" 'ipython3)
   (defun my-elpy-hook ()
       (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
       (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
@@ -333,9 +343,7 @@ setxkbmap -option ctrl:nocaps
         (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
         (local-set-key "\C-cp" 'pdb-pm)
         )
-        (add-hook 'inferior-python-mode-hook 'my-inf-py-hook) 
-        
-      )
+        (add-hook 'inferior-python-mode-hook 'my-inf-py-hook))
 
 (defun eshell/sp ()
   (setq python-shell-interpreter "isympy3")
@@ -348,65 +356,101 @@ setxkbmap -option ctrl:nocaps
 * Org-mode
 ** config
 #+BEGIN_SRC emacs-lisp
-(use-package org
-:bind("C-c a". org-agenda)
-:config
-(setq org-log-done t)
-(setq org-agenda-files (list "~/org/agenda/work.org"
-                             "~/org/agenda/buy.org"
-                             "~/org/agenda/school.org" 
-                             "~/org/agenda/home.org"
-                             "~/org/agenda/lab.org"
-                             "~/org/agenda/qbic.org"))
-(add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
-(setq org-startup-indented t)
-(setq org-hide-leading-stars t)
-(setq org-odd-level-only nil) 
-(setq org-insert-heading-respect-content nil)
-(setq org-M-RET-may-split-line '((item) (default . t)))
-(setq org-special-ctrl-a/e t)
-(setq org-return-follows-link nil)
-(setq org-use-speed-commands t)
-(setq org-startup-align-all-tables nil)
-(setq org-log-into-drawer nil)
-(setq org-tags-column 1)
-(setq org-ellipsis " \u25bc" )
-(setq org-speed-commands-user nil)
-(setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
-(setq org-completion-use-ido t)
-(setq org-indent-mode t)
-(setq org-startup-truncated nil)
-(setq auto-fill-mode -1)
-(setq-default fill-column 99999)
-(setq fill-column 99999)
-(global-auto-revert-mode t)
-(prefer-coding-system 'utf-8)
-;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-(transient-mark-mode nil)               ;; No region when it is not highlighted
-;; (setq cua-keep-region-after-copy t) 
-(global-set-key (kbd "C-c c") 'org-capture)
-;;(org-babel-do-load-languages
-;; 'org-babel-load-languages
-;;'((python . t)))
+  (use-package org
+  :bind("C-c a". org-agenda)
+  :config
+  (setq org-log-done t)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (setq org-capture-templates
+   '(("T" "todo with link" entry (file "~/org/agenda/todo.org")
+      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
+     ("t" "todo" entry (file "~/org/agenda/todo.org")
+      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+     ("b" "stuff to buy" entry (file+headline "~/org/agenda/buy.org" "to buy")
+      "* TODO buy %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+     ("B" "elfeed bookmark" entry (file+headline "~/org/bookmarks.org" "elfeed")
+      "* %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a")
+     ("p" "Process" entry (file+headline "~/org/agenda/gtd.org" "Tasks")
+      "* TODO [#A] Process mail from %:fromname on %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n:PROPERTIES:\n:CREATED: %U\n:END:\n %a" :immediate-finish t :prepend t)
+     ("Q" "qbic" entry
+      (file "~/org/agenda/qbic.org")
+      "")
+     ("s" "school" entry
+      (file "~/org/agenda/school.org")
+      "")
+     ("w" "work" entry
+      (file "~/org/agenda/work.org")
+      "")
+     ("h" "home" entry
+      (file "~/org/agenda/home.org")
+      "")
+     ("l" "lab" entry
+      (file "~/org/agenda/lab.org")
+      "")
+     ("a" "Appointment" entry (file "~/org/agenda/appointments.org")
+        "* %? %^G \n  %^t")
+     ("e" "todo email" entry (file+headline "~/org/agenda/todo.org" "emails")
+      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
+     ))
+  
+  (setq org-capture-templates-contexts
+      '(("B" ((in-mode . "elfeed-show-mode")))
+        ("e" ((in-mode . "mu4e-view-mode")))))
 
-;;(require 'ob-shell)
-;;(org-babel-do-load-languages 'org-babel-load-languages '((sh . t)))
+  (setq org-agenda-files (list "~/org/agenda"))
+  (require 'org-mu4e)
+  (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
+  (setq org-startup-indented t)
+  (setq org-hide-leading-stars t)
+  (setq org-odd-level-only nil)
+  (setq org-insert-heading-respect-content nil)
+  (setq org-M-RET-may-split-line '((item) (default . t)))
+  (setq org-special-ctrl-a/e t)
+  (setq org-return-follows-link nil)
+  (setq org-use-speed-commands t)
+  (setq org-startup-align-all-tables nil)
+  (setq org-log-into-drawer nil)
+  (setq org-tags-column 1)
+  (setq org-ellipsis " \u25bc" )
+  (setq org-speed-commands-user nil)
+  (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+  (setq org-completion-use-ido t)
+  (setq org-indent-mode t)
+  (setq org-startup-truncated nil)
+  (setq auto-fill-mode -1)
+  (setq-default fill-column 99999)
+  (setq fill-column 99999)
+  (setq org-image-actual-width nil)
+
+  (global-auto-revert-mode t)
+  (prefer-coding-system 'utf-8)
+  ;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+  (transient-mark-mode nil)               ;; No region when it is not highlighted
+  ;; (setq cua-keep-region-after-copy t)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+  '((python . t)))
+)
+
 
 (defun org-override-keys ()
-(local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
-(local-set-key (kbd "M-h") 'org-metaleft)
-(local-set-key (kbd "M-r") 'org-metaright)
-)
+  (local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
+  (local-set-key (kbd "M-h") 'org-shiftmetaleft)
+  (local-set-key (kbd "M-r") 'org-shiftmetaright)
+  )
+  (add-hook 'org-mode-hook 'org-override-keys)
 
-(add-hook 'org-mode-hook 'org-override-keys)
-)
+  (defun my-org-agenda-hook ()
+          (local-set-key (kbd "C-t") 'org-agenda-previous-line)
+          (local-set-key (kbd "C-w") 'org-agenda-next-line)
+                 )
+  (add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
 
-(defun my-org-agenda-hook ()
-        (local-set-key (kbd "C-t") 'org-agenda-previous-line)
-        (local-set-key (kbd "C-w") 'org-agenda-next-line)
-               )
-(add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
-    
+(use-package org-bullets
+      :ensure t
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 
 #+END_SRC
@@ -547,7 +591,7 @@ setxkbmap -option ctrl:nocaps
 ** where not to override
 These things have to take the form:
 (defun my-foo-setup-hook ()
-  (my-keys-minor-mode 0))
+(my-keys-minor-mode 0))
 (add-hook 'foo-hook 'my-foo-setup-hook)
 #+BEGIN_SRC emacs-lisp
 
@@ -571,7 +615,7 @@ These things have to take the form:
 #+BEGIN_SRC emacs-lisp
 (customize-set-variable 'tramp-default-method "ssh")
 #+END_SRC
-* ssh 
+* ssh
 #+BEGIN_SRC emacs-lisp
 (use-package ssh
 :ensure t
@@ -582,7 +626,7 @@ These things have to take the form:
                 (shell-dirtrack-mode t)
                 (setq dirtrackp nil))))
 
- 
+
 
 (require 'ssh)
 #+END_SRC
@@ -614,7 +658,7 @@ These things have to take the form:
       (condition-case-unless-debug nil
           (scroll-up-command arg)
         (error (elfeed-show-next)))))
-  
+
   (defun elfeed-scroll-down-command (&optional arg)
     "Scroll up or go to next feed item in Elfeed"
     (interactive "^P")
@@ -643,66 +687,82 @@ These things have to take the form:
 #+END_SRC
 * mu4e email
 #+BEGIN_SRC emacs-lisp
-  (require 'mu4e)
+      (require 'mu4e)
 
-  ;; use mu4e for e-mail in emacs
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-
-  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-  ;; additional non-Gmail addresses and want assign them different
-  ;; behavior.)
-
-  ;; setup some handy shortcuts
-  ;; you can quickly switch to your Inbox -- press ``ji''
-  ;; then, when you want archive some messages, move them to
-  ;; the 'All Mail' folder by pressing ``ma''.
-
-  ;; (setq mu4e-maildir-shortcuts
-  ;;      '( (:maildir "/INBOX"              :key ?i)
-  ;;         (:maildir "/[Gmail].Sent Mail"  :key ?s)
-  ;;         (:maildir "/[Gmail].Trash"      :key ?t)
-  ;;         (:maildir "/[Gmail].All Mail"   :key ?a)))
-
-  ;;   allow  for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap"
-      mu4e-update-interval 180)
-
-  (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill);; something about ourselves
+      ;; use mu4e for e-mail in emacs
+      (setq mail-user-agent 'mu4e-user-agent)
   (setq
-     user-mail-address "npalermo10@gmail.com"
-     user-full-name  "Nicholas Palermo"
-     )
-  (setq mu4e-attachment-dir "~/downloads")
-  ;; sending mail -- replace USERNAME with your gmail username
-  ;; also, make sure the gnutls command line utils are installed
-  ;; package 'gnutls-bin' in Debian/Ubuntu
+   ;;org-mu4e-link-query-in-headers-mode nil
+   mue4e-headers-skip-duplicates  t
+   mu4e-view-show-images t
+   mu4e-view-show-addresses t
+   mu4e-compose-format-flowed nil
+   mu4e-date-format "%y/%m/%d"
+   mu4e-headers-date-format "%Y/%m/%d"
+   mu4e-change-filenames-when-moving t
+   mu4e-attachments-dir "~/Downloads"
 
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-     starttls-use-gnutls t
-     smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-     smtpmail-auth-credentials
-       '(("smtp.gmail.com" 587 "npalermo10@gmail.com" nil))
-     smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-service 587)
+   mu4e-maildir       "~/Maildir"   ;; top-level Maildir
+   ;; note that these folders below must start with /
+   ;; the paths are relative to maildir root
+   mu4e-refile-folder "/Archive"
+   mu4e-sent-folder   "/Sent"
+   mu4e-drafts-folder "/Drafts"
+   mu4e-trash-folder  "/Trash")
+      ;; (setq mu4e-drafts-folder "/[fastmail].Drafts")
+      ;; (setq mu4e-sent-folder   "/[fastmail].Sent Mail")
+      ;; (setq mu4e-trash-folder  "/[fastmail].Trash")
 
-  ;; alternatively, for emacs-24 you can use:
-  ;;(setq message-send-mail-function 'smtpmail-send-it
-  ;;     smtpmail-stream-type 'starttls
-  ;;     smtpmail-default-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-server "smtp.gmail.com"
-  ;;     smtpmail-smtp-service 587)
+      ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+      ;; (setq mu4e-sent-messages-behavior 'delete)
 
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
+      ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+      ;; additional non-Gmail addresses and want assign them different
+      ;; behavior.)
+
+      ;; setup some handy shortcuts
+      ;; you can quickly switch to your Inbox -- press ``ji''
+      ;; then, when you want archive some messages, move them to
+      ;; the 'All Mail' folder by pressing ``ma''.
+
+      ;; (setq mu4e-maildir-shortcuts
+      ;;      '( (:maildir "/INBOX"              :key ?i)
+      ;;         (:maildir "/[Gmail].Sent Mail"  :key ?s)
+      ;;         (:maildir "/[Gmail].Trash"      :key ?t)
+      ;;         (:maildir "/[Gmail].All Mail"   :key ?a)))
+
+      ;;   allow  for updating mail using 'U' in the main view:
+      (setq mu4e-get-mail-command "offlineimap"
+          mu4e-update-interval 180)
+
+      (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill);; something about ourselves
+      (setq
+         user-mail-address "nicholaspalermo@fastmail.com"
+         user-full-name  "Nicholas Palermo"
+         )
+      (setq mu4e-attachment-dir "~/downloads")
+      ;; sending mail -- replace USERNAME with your gmail username
+      ;; also, make sure the gnutls command line utils are installed
+      ;; package 'gnutls-bin' in Debian/Ubuntu
+
+      (require 'smtpmail)
+
+      (setq
+       message-send-mail-function   'smtpmail-send-it
+       smtpmail-smtp-server         "smtp.fastmail.com"
+       smtpmail-smtp-service 587
+       smtpmail-debug-info t
+       smtpmail-steam-type 'ssl)
+
+      ;; alternatively, for emacs-24 you can use:
+      ;;(setq message-send-mail-function 'smtpmail-send-it
+      ;;     smtpmail-stream-type 'starttls
+      ;;     smtpmail-default-smtp-server "smtp.gmail.com"
+      ;;     smtpmail-smtp-server "smtp.gmail.com"
+      ;;     smtpmail-smtp-service 587)
+
+      ;; don't keep message buffers around
+      (setq message-kill-buffer-on-exit t)
 
 
 #+END_SRC
@@ -713,7 +773,7 @@ These things have to take the form:
 (fset 'insert_roam_alias
    [?\C-x ?\C-t ?\C-x ?\C-n return ?# ?+ ?r ?o ?a ?m ?_ ?a ?l ?i ?a ?s ?: ? ])
 
-    
+
 (use-package org-roam
       :ensure t
       :hook
@@ -751,10 +811,10 @@ These things have to take the form:
   (org-journal-date-format "%A, %d %B %Y"))
 
 #+END_SRC
-* bibtex/org-ref 
-    #+BEGIN_SRC emacs-lisp
+* bibtex/org-ref
+#+BEGIN_SRC emacs-lisp
     (use-package org-roam-bibtex
-      :ensure t  
+      :ensure t
       :after org-roam
       :hook (org-roam-mode . org-roam-bibtex-mode)
       :bind (:map org-mode-map
@@ -773,12 +833,40 @@ These things have to take the form:
        (use-package org-ref
              :ensure t
              :config
-             (setq reftex-default-bibliography '("/home/nick/.emacs.d/MyLibrary.bib")
+             (setq reftex-default-bibliography '("/home/nick/org/bibliography/MyLibrary.bib")
                org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
 
            ;; see org-ref for use of these variables
            (setq org-ref-bibliography-notes "/home/nick/org/bibliography/helm-bibtex-notes/notes.org"
              org-ref-default-bibliography '("/home/nick/org/bibliography/MyLibrary.bib")
+            org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b" "bibtex %b" "makeindex %b" "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b" "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b")
+            org-ref-default-citation-link "citep"
                  ))
 
 #+END_SRC
+* doom modeline
+#+begin_src emacs-lisp
+
+(use-package all-the-icons
+    :ensure t
+)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+end_src
+* yasnippet
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+  (add-hook 'org-mode-hook #'yas-minor-mode)
+  )
+
+(use-package yasnippet-snippets
+  :ensure t
+    )
+
+
+#+end_src
