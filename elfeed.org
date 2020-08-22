@@ -1,5 +1,5 @@
 * feeds :elfeed:
-** subreddit :reddit:
+** subreddit :ignore:
 *** https://www.reddit.com/r/politics/hot/.rss :politics:
 *** https://www.reddit.com/r/emacs/hot/.rss :emacs:
 *** https://www.reddit.com/r/gaming/hot/.rss :gaming:
