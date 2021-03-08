@@ -1,89 +1,89 @@
 My own personal emacs config
 * my own navigation/kill/yank/insert/etc. functions
-#+BEGIN_SRC emacs-lisp
-;; functions
-(defun backward-kill-line ()
-  "Kill a backward line"
-  (interactive)
-  (kill-line -1)
-  )
+ #+BEGIN_SRC emacs-lisp
+ ;; functions
+ (defun backward-kill-line ()
+   "Kill a backward line"
+   (interactive)
+   (kill-line -1)
+   )
 
-(defun comment-or-uncomment-line-or-region ()
-  "Comments or uncomments the current line or region."
-  (interactive)
-  (if (region-active-p)
-      (comment-or-uncomment-region (region-beginning) (region-end))
-    (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    )
-  )
+ (defun comment-or-uncomment-line-or-region ()
+   "Comments or uncomments the current line or region."
+   (interactive)
+   (if (region-active-p)
+       (comment-or-uncomment-region (region-beginning) (region-end))
+     (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+     )
+   )
 
-(defun kill-line-or-region ()
-  "kills current line or region."
-  (interactive)
-  (if (region-active-p)
-      (kill-region (region-beginning)(region-end))
-    (kill-region (line-beginning-position) (line-end-position))
-    )
-  )
+ (defun kill-line-or-region ()
+   "kills current line or region."
+   (interactive)
+   (if (region-active-p)
+       (kill-region (region-beginning)(region-end))
+     (kill-region (line-beginning-position) (line-end-position))
+     )
+   )
 
-(defun my-insert-date (prefix)
-    "Insert the current date. With prefix-argument, use ISO format. With
-   two prefix arguments, write out the day and month name."
-    (interactive "P")
-    (let ((format (cond
-                   ((not prefix) "%Y-%m-%d %H:%M")
-                   ((equal prefix '(4)) "%Y-%m-%d")
-                   ((equal prefix '(16)) "%A, %d. %B %Y")))
-          )
-      (insert (format-time-string format))))
+ (defun my-insert-date (prefix)
+     "Insert the current date. With prefix-argument, use ISO format. With
+    two prefix arguments, write out the day and month name."
+     (interactive "P")
+     (let ((format (cond
+                    ((not prefix) "%Y-%m-%d %H:%M")
+                    ((equal prefix '(4)) "%Y-%m-%d")
+                    ((equal prefix '(16)) "%A, %d. %B %Y")))
+           )
+       (insert (format-time-string format))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;               insert a file name
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;               insert a file name
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun my-insert-file-name (filename &optional args)
-    "Insert name of file FILENAME into buffer after point.
+ (defun my-insert-file-name (filename &optional args)
+     "Insert name of file FILENAME into buffer after point.
 
-  Prefixed with \\[universal-argument], expand the file name to
-  its fully canocalized path.  See `expand-file-name'.
+   Prefixed with \\[universal-argument], expand the file name to
+   its fully canocalized path.  See `expand-file-name'.
 
-  Prefixed with \\[negative-argument], use relative path to file
-  name from current directory, `default-directory'.  See
-  `file-relative-name'.
+   Prefixed with \\[negative-argument], use relative path to file
+   name from current directory, `default-directory'.  See
+   `file-relative-name'.
 
-  The default with no prefix is to insert the file name exactly as
-  it appears in the minibuffer prompt."
-    ;; Based on insert-file in Emacs -- ashawley 20080926
-    (interactive "*fInsert file name: \nP")
-    (cond ((eq '- args)
-           (insert (file-relative-name filename)))
-          ((not (null args))
-           (insert (expand-file-name filename)))
-          (t
-           (insert filename))))
+   The default with no prefix is to insert the file name exactly as
+   it appears in the minibuffer prompt."
+     ;; Based on insert-file in Emacs -- ashawley 20080926
+     (interactive "*fInsert file name: \nP")
+     (cond ((eq '- args)
+            (insert (file-relative-name filename)))
+           ((not (null args))
+            (insert (expand-file-name filename)))
+           (t
+            (insert filename))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;Cleanup commands;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;Cleanup commands;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun untabify-buffer ()
-  "Untabify current buffer"
-  (interactive)
-  (untabify (point-min) (point-max)))
+ (defun untabify-buffer ()
+   "Untabify current buffer"
+   (interactive)
+   (untabify (point-min) (point-max)))
 
-(defun indent-buffer()
-  "indent whole buffer"
-  (interactive)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
+ (defun indent-buffer()
+   "indent whole buffer"
+   (interactive)
+   (delete-trailing-whitespace)
+   (indent-region (point-min) (point-max) nil)
+   (untabify (point-min) (point-max)))
 
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
+ (defun cleanup-buffer ()
+   "Perform a bunch of operations on the whitespace content of a buffer."
+   (interactive)
+   (indent-buffer)
+   (untabify-buffer)
+   (delete-trailing-whitespace))
 
 #+END_SRC
 * global keybindings
@@ -177,7 +177,12 @@ My own personal emacs config
 
 (fset 'start_hcube_venv_and_test
    [?\M-x ?f ?i ?n ?d ?  ?f ?i ?l ?e return ?\C-x ?\C-m ?\M-w ?/ ?h ?o ?m ?e ?/ ?n ?i ?c ?k ?/ ?p ?y ?t ?h ?o ?n ?_ ?s ?c ?r ?i ?p ?t ?s ?/ ?h ?o ?l ?o ?c ?u ?b ?e ?/ ?t ?e ?s ?t ?. ?p ?y return ?\M-x ?p ?y ?v ?e ?n ?v ?- ?w ?o ?r ?k ?o ?n return return])
+
+(fset 'email-region
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([75497517 134217848 109 117 52 101 45 99 111 tab 109 112 111 115 101 tab tab 110 101 119 return 24 23 67108925 24 20 24 20 23 24 14] 0 "%d")) arg)))
+
 (global-set-key (kbd "C-x C-k v") 'start_hcube_venv_and_test)
+(global-set-key (kbd "C-x C-k m") 'email-region)
 #+END_SRC
 
 * shell commands to run at startup
@@ -186,34 +191,34 @@ setxkbmap -option ctrl:nocaps
 #+END_SRC
 * Emacs appearece menu,toolbar,scrollbar
 #+BEGIN_SRC emacs-lisp
-    (menu-bar-mode -1)
-    (toggle-scroll-bar -1)
-    (tool-bar-mode -1)
-    (tooltip-mode -1)
-    (scroll-bar-mode -1)
-    (show-paren-mode t)
-  (setq line-number-mode t)                     ;start in line-number-mode
-  (setq column-number-mode t)                   ;start in column-number-mode
-  (use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+     (menu-bar-mode -1)
+     (toggle-scroll-bar -1)
+     (tool-bar-mode -1)
+     (tooltip-mode -1)
+     (scroll-bar-mode -1)
+     (show-paren-mode t)
+   (setq line-number-mode t)                     ;start in line-number-mode
+   (setq column-number-mode t)                   ;start in column-number-mode
+   (use-package rainbow-delimiters
+   :ensure t
+   :config
+   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 
-  (use-package highlight-indent-guides
-    :ensure t
-    :custom
-    (highlight-indent-guides-method 'character)
-    (highlight-indent-guides-responsive 'top)
-    (highlight-indent-guides-auto-enabled nil)
-    :custom-face
-      (highlight-indent-guides-character-face ((t (:foreground ,"#2f4f4f"))))
-      (highlight-indent-guides-top-character-face ((t (:foreground ,"#4682b4"))))
-      (highlight-indentation-face ((t (:foreground ,"#2f4f4f"))))
+   (use-package highlight-indent-guides
+     :ensure t
+     :custom
+     (highlight-indent-guides-method 'character)
+     (highlight-indent-guides-responsive 'top)
+     (highlight-indent-guides-auto-enabled nil)
+     :custom-face
+       (highlight-indent-guides-character-face ((t (:foreground ,"#2f4f4f"))))
+       (highlight-indent-guides-top-character-face ((t (:foreground ,"#4682b4"))))
+       (highlight-indentation-face ((t (:foreground ,"#2f4f4f"))))
 
-    :hook
-    (prog-mode . highlight-indent-guides-mode))
-#+END_SRC
+     :hook
+     (prog-mode . highlight-indent-guides-mode))
+ #+END_SRC
 * Emacs global settings
 #+BEGIN_SRC emacs-lisp
   (tooltip-mode nil)                      ; one-line help text in the echo area
@@ -367,14 +372,11 @@ setxkbmap -option ctrl:nocaps
      ("t" "todo" entry (file "~/org/agenda/todo.org")
       "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
      ("b" "stuff to buy" entry (file+headline "~/org/agenda/buy.org" "to buy")
-      "* TODO buy %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+      "* TODO buy %i%?  %^g \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+     ("g" "groceries to buy" entry (file+headline "~/org/agenda/buy.org" "groceries")
+      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
      ("B" "elfeed bookmark" entry (file+headline "~/org/bookmarks.org" "elfeed")
       "* %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a")
-     ("p" "Process" entry (file+headline "~/org/agenda/gtd.org" "Tasks")
-      "* TODO [#A] Process mail from %:fromname on %:subject\nSCHEDULED:%t\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n:PROPERTIES:\n:CREATED: %U\n:END:\n %a" :immediate-finish t :prepend t)
-     ("Q" "qbic" entry
-      (file "~/org/agenda/qbic.org")
-      "")
      ("s" "school" entry
       (file "~/org/agenda/school.org")
       "")
@@ -398,8 +400,11 @@ setxkbmap -option ctrl:nocaps
         ("e" ((in-mode . "mu4e-view-mode")))))
 
   (setq org-agenda-files (list "~/org/agenda"))
+  (setq org-archive-location "~/org/agenda/archive.org::* From %s")
   (require 'org-mu4e)
   (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
+  (setq org-todo-keywords
+      '((sequence "TODO" "WAITING" "|" "DONE" )))
   (setq org-startup-indented t)
   (setq org-hide-leading-stars t)
   (setq org-odd-level-only nil)
@@ -454,6 +459,8 @@ setxkbmap -option ctrl:nocaps
 
 
 #+END_SRC
+** latex classes
+
 * themes
 #+BEGIN_SRC emacs-lisp
 
@@ -697,6 +704,7 @@ These things have to take the form:
    mu4e-view-show-images t
    mu4e-view-show-addresses t
    mu4e-compose-format-flowed nil
+   shr-color-visible-luminance-min 80  ;; so I can see emails that the bg is too similar to fg. default is 40
    mu4e-date-format "%y/%m/%d"
    mu4e-headers-date-format "%Y/%m/%d"
    mu4e-change-filenames-when-moving t
@@ -709,27 +717,12 @@ These things have to take the form:
    mu4e-sent-folder   "/Sent"
    mu4e-drafts-folder "/Drafts"
    mu4e-trash-folder  "/Trash")
-      ;; (setq mu4e-drafts-folder "/[fastmail].Drafts")
-      ;; (setq mu4e-sent-folder   "/[fastmail].Sent Mail")
-      ;; (setq mu4e-trash-folder  "/[fastmail].Trash")
-
       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
       ;; (setq mu4e-sent-messages-behavior 'delete)
-
-      ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-      ;; additional non-Gmail addresses and want assign them different
-      ;; behavior.)
-
       ;; setup some handy shortcuts
       ;; you can quickly switch to your Inbox -- press ``ji''
       ;; then, when you want archive some messages, move them to
       ;; the 'All Mail' folder by pressing ``ma''.
-
-      ;; (setq mu4e-maildir-shortcuts
-      ;;      '( (:maildir "/INBOX"              :key ?i)
-      ;;         (:maildir "/[Gmail].Sent Mail"  :key ?s)
-      ;;         (:maildir "/[Gmail].Trash"      :key ?t)
-      ;;         (:maildir "/[Gmail].All Mail"   :key ?a)))
 
       ;;   allow  for updating mail using 'U' in the main view:
       (setq mu4e-get-mail-command "offlineimap"
@@ -763,7 +756,7 @@ These things have to take the form:
 
       ;; don't keep message buffers around
       (setq message-kill-buffer-on-exit t)
-
+(add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
 #+END_SRC
 * org roam
