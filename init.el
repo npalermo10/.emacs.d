@@ -22,6 +22,10 @@
 (eval-when-compile
   (require 'use-package))
 
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(use-package org
+  :ensure org-plus-contrib
+  :pin org)
 ;;; Load the config
 (org-babel-load-file (concat user-emacs-directory "config.org"))
 
