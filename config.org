@@ -89,29 +89,29 @@ My own personal emacs config
 * global keybindings
 ** Navigation
 #+BEGIN_SRC emacs-lisp
-(define-key input-decode-map [?\C-m] [C-m])
-(global-set-key (kbd "C-t") 'previous-line)
-(global-set-key (kbd "C-w") 'next-line)
-(global-set-key (kbd "C-n") 'forward-char)
-(global-set-key (kbd "<C-m>") 'backward-char)
-(global-set-key (kbd "C-S-t") 'scroll-down)
-(global-set-key (kbd "C-S-w") 'scroll-up)
-(global-set-key (kbd "C-S-n") 'forward-word)
-(global-set-key (kbd "C-S-m") 'backward-word)
-(global-set-key (kbd "C-x C-n") 'end-of-line)
-(global-set-key (kbd "C-x <C-m>") 'beginning-of-line)
-(global-set-key (kbd "C-x C-w") 'end-of-buffer)
-(global-set-key (kbd "C-x C-t") 'beginning-of-buffer)
+  (define-key input-decode-map [?\C-m] [C-m])
+  (global-set-key (kbd "C-t") 'previous-line)
+  (global-set-key (kbd "C-w") 'next-line)
+  (global-set-key (kbd "C-n") 'forward-char)
+  (global-set-key (kbd "<C-m>") 'backward-char)
+  (global-set-key (kbd "C-S-t") 'scroll-down)
+  (global-set-key (kbd "C-S-w") 'scroll-up)
+  (global-set-key (kbd "C-S-n") 'forward-word)
+  (global-set-key (kbd "C-S-m") 'backward-word)
+  (global-set-key (kbd "C-x C-n") 'end-of-line)
+  (global-set-key (kbd "C-x <C-m>") 'beginning-of-line)
+  (global-set-key (kbd "C-x C-w") 'end-of-buffer)
+  (global-set-key (kbd "C-x C-t") 'beginning-of-buffer)
 
-(global-set-key (kbd "M-d") 'other-window)
-(global-set-key (kbd "C-o") 'split-window-right)
-(global-set-key (kbd "C-S-o") 'split-window-below)
-(global-set-key (kbd "C-x C-o") 'delete-window)
-(global-set-key (kbd "C-k") 'kill-buffer-and-window)
+  (global-set-key (kbd "M-d") 'other-window)
+  (global-set-key (kbd "C-o") 'split-window-right)
+  (global-set-key (kbd "C-S-o") 'split-window-below)
+  (global-set-key (kbd "C-x C-o") 'delete-window)
+  (global-set-key (kbd "C-k") 'kill-buffer-and-window)
 
-(global-set-key (kbd "C-b") 'switch-to-next-buffer)
-(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
-(global-set-key (kbd "M-b") 'switch-to-prev-buffer)
+  (global-set-key (kbd "C-b") 'switch-to-next-buffer)
+  (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+  (global-set-key (kbd "M-b") 'switch-to-prev-buffer)
 #+END_SRC
 ** help
 #+BEGIN_SRC emacs-lisp
@@ -305,12 +305,14 @@ setxkbmap -option ctrl:nocaps
 ** My pdb functions
 - in order to make these functions work I need to import all of python mode.. Its ridiculous
 #+BEGIN_SRC emacs-lisp
-(use-package python-mode
-     :ensure t
+  (use-package python-mode
+       :ensure t
 
-)
 
-(require 'pdb_emacs.el)
+
+  )
+
+  (require 'pdb_emacs.el)
 
 #+END_SRC
 ** initialize elpy
@@ -324,6 +326,7 @@ setxkbmap -option ctrl:nocaps
       ;; python-shell-interpreter-args "--profile=my_pylab"
                                           )
   (key-chord-define-global ".3" 'ipython3)
+
   (defun my-elpy-hook ()
       (define-key my-keys-minor-mode-map (kbd "C-S-i") nil)
       (define-key my-keys-minor-mode-map (kbd "C-S-k") nil)
@@ -344,118 +347,126 @@ setxkbmap -option ctrl:nocaps
 * ipython settings
 #+BEGIN_SRC emacs-lisp
 
- (defun my-inf-py-hook ()
-        (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
-        (local-set-key "\C-cp" 'pdb-pm)
-        )
-        (add-hook 'inferior-python-mode-hook 'my-inf-py-hook))
+   (defun my-inf-py-hook ()
+          (setq kill-buffer-query-functions (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+          (local-set-key "\C-cp" 'pdb-pm)
+          )
+   (add-hook 'inferior-python-mode-hook 'my-inf-py-hook))
 
-(defun eshell/sp ()
-  (setq python-shell-interpreter "isympy3")
-  (setq python-shell-interpreter-args "--pretty=unicode -I --")
-  (run-python)
-  (python-shell-switch-to-shell)
-  (delete-other-windows)
-  )
+  (defun eshell/sp ()
+    (setq python-shell-interpreter "isympy3")
+    (setq python-shell-interpreter-args "--pretty=unicode -I --")
+    (run-python)
+    (python-shell-switch-to-shell)
+    (delete-other-windows)
+    )
+  (use-package ob-ipython
+    :ensure t)
+
 #+END_SRC
 * Org-mode
 ** config
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-  :bind("C-c a". org-agenda)
-  :config
-  (setq org-log-done t)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (setq org-capture-templates
-   '(("T" "todo with link" entry (file "~/org/agenda/todo.org")
-      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
-     ("t" "todo" entry (file "~/org/agenda/todo.org")
-      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
-     ("b" "stuff to buy" entry (file+headline "~/org/agenda/buy.org" "to buy")
-      "* TODO buy %i%?  %^g \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
-     ("g" "groceries to buy" entry (file+headline "~/org/agenda/buy.org" "groceries")
-      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
-     ("B" "elfeed bookmark" entry (file+headline "~/org/bookmarks.org" "elfeed")
-      "* %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a")
-     ("s" "school" entry
-      (file "~/org/agenda/school.org")
-      "")
-     ("w" "work" entry
-      (file "~/org/agenda/work.org")
-      "")
-     ("h" "home" entry
-      (file "~/org/agenda/home.org")
-      "")
-     ("l" "lab" entry
-      (file "~/org/agenda/lab.org")
-      "")
-     ("a" "Appointment" entry (file "~/org/agenda/appointments.org")
-        "* %? %^G \n  %^t")
-     ("e" "todo email" entry (file+headline "~/org/agenda/todo.org" "emails")
-      "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
-     ))
-  
-  (setq org-capture-templates-contexts
-      '(("B" ((in-mode . "elfeed-show-mode")))
-        ("e" ((in-mode . "mu4e-view-mode")))))
+    (use-package org
+    :bind("C-c a". org-agenda)
+    :config
+    (setq org-log-done t)
+    (global-set-key (kbd "C-c l") 'org-store-link)
+    (setq org-capture-templates
+     '(("T" "todo with link" entry (file "~/org/agenda/todo.org")
+        "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
+       ("t" "todo" entry (file "~/org/agenda/todo.org")
+        "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+       ("b" "stuff to buy" entry (file+headline "~/org/agenda/buy.org" "to buy")
+        "* TODO buy %i%?  %^g \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+       ("g" "groceries to buy" entry (file+headline "~/org/agenda/buy.org" "groceries")
+        "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n")
+       ("B" "elfeed bookmark" entry (file+headline "~/org/bookmarks.org" "elfeed")
+        "* %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a")
+       ("s" "school" entry
+        (file "~/org/agenda/school.org")
+        "")
+       ("w" "work" entry
+        (file "~/org/agenda/work.org")
+        "")
+       ("h" "home" entry
+        (file "~/org/agenda/home.org")
+        "")
+       ("l" "lab" entry
+        (file "~/org/agenda/lab.org")
+        "")
+       ("a" "Appointment" entry (file "~/org/agenda/appointments.org")
+          "* %? %^G \n  %^t")
+       ("e" "todo email" entry (file+headline "~/org/agenda/todo.org" "emails")
+        "* TODO %i%? \n:PROPERTIES: \n:CREATED: %U \n:END: \n %a\n")
+       ))
 
-  (setq org-agenda-files (list "~/org/agenda"))
-  (setq org-archive-location "~/org/agenda/archive.org::* From %s")
-  (require 'org-mu4e)
-  (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
-  (setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "|" "DONE" )))
-  (setq org-startup-indented t)
-  (setq org-hide-leading-stars t)
-  (setq org-odd-level-only nil)
-  (setq org-insert-heading-respect-content nil)
-  (setq org-M-RET-may-split-line '((item) (default . t)))
-  (setq org-special-ctrl-a/e t)
-  (setq org-return-follows-link nil)
-  (setq org-use-speed-commands t)
-  (setq org-startup-align-all-tables nil)
-  (setq org-log-into-drawer nil)
-  (setq org-tags-column 1)
-  (setq org-ellipsis " \u25bc" )
-  (setq org-speed-commands-user nil)
-  (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
-  (setq org-completion-use-ido t)
-  (setq org-indent-mode t)
-  (setq org-startup-truncated nil)
-  (setq auto-fill-mode -1)
-  (setq-default fill-column 99999)
-  (setq fill-column 99999)
-  (setq org-image-actual-width nil)
+    (setq org-capture-templates-contexts
+        '(("B" ((in-mode . "elfeed-show-mode")))
+          ("e" ((in-mode . "mu4e-view-mode")))))
 
-  (global-auto-revert-mode t)
-  (prefer-coding-system 'utf-8)
-  ;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-  (transient-mark-mode nil)               ;; No region when it is not highlighted
-  ;; (setq cua-keep-region-after-copy t)
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-  '((python . t)))
-)
+    (setq org-agenda-files (list "~/org/agenda"))
+    (setq org-archive-location "~/org/agenda/archive.org::* From %s")
+    (require 'org-mu4e)
+    (add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
+    (setq org-todo-keywords
+        '((sequence "TODO" "WAITING" "|" "DONE" )))
+    (setq org-startup-indented t)
+    (setq org-hide-leading-stars t)
+    (setq org-odd-level-only nil)
+    (setq org-insert-heading-respect-content nil)
+    (setq org-M-RET-may-split-line '((item) (default . t)))
+    (setq org-special-ctrl-a/e t)
+    (setq org-return-follows-link nil)
+    (setq org-use-speed-commands t)
+    (setq org-startup-align-all-tables nil)
+    (setq org-log-into-drawer nil)
+    (setq org-tags-column 1)
+    (setq org-ellipsis " \u25bc" )
+    (setq org-speed-commands-user nil)
+    (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+    (setq org-completion-use-ido t)
+    (setq org-indent-mode t)
+    (setq org-startup-truncated nil)
+    (setq auto-fill-mode -1)
+    (setq-default fill-column 99999)
+    (setq fill-column 99999)
+    (setq org-image-actual-width nil)
+    (setq org-confirm-babel-evaluate nil)
+    (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+    (global-auto-revert-mode t)
+    (prefer-coding-system 'utf-8)
+    ;; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+    (transient-mark-mode nil)               ;; No region when it is not highlighted
+    ;; (setq cua-keep-region-after-copy t)
+    (global-set-key (kbd "C-c c") 'org-capture)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+    '((python . t)
+      (ipython . t)
+      ))
 
-
-(defun org-override-keys ()
-  (local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
-  (local-set-key (kbd "M-h") 'org-shiftmetaleft)
-  (local-set-key (kbd "M-r") 'org-shiftmetaright)
   )
-  (add-hook 'org-mode-hook 'org-override-keys)
 
-  (defun my-org-agenda-hook ()
-          (local-set-key (kbd "C-t") 'org-agenda-previous-line)
-          (local-set-key (kbd "C-w") 'org-agenda-next-line)
-                 )
-  (add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
 
-(use-package org-bullets
-      :ensure t
-      :config
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+  (defun org-override-keys ()
+    (local-set-key (kbd "C-/") 'comment-or-uncomment-line-or-region)
+    (local-set-key (kbd "M-h") 'org-shiftmetaleft)
+    (local-set-key (kbd "M-r") 'org-shiftmetaright)
+    )
+    (add-hook 'org-mode-hook 'org-override-keys)
+
+    (defun my-org-agenda-hook ()
+            (local-set-key (kbd "C-t") 'org-agenda-previous-line)
+            (local-set-key (kbd "C-w") 'org-agenda-next-line)
+                   )
+    (add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
+
+  (use-package org-bullets
+        :ensure t
+        :config
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 
 #+END_SRC

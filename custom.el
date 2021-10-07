@@ -70,7 +70,7 @@
  '(fci-rule-color "#383838")
  '(org-agenda-files
    (quote
-    ("~/org/agenda/todo.org" "~/syncthing_nick/org/dupont_many_1994.org" "~/syncthing_nick/org/20200617141328-qbic_journal_club.org" "~/syncthing_nick/org/20200615181734-plumes.org" "~/org/agenda/work.org" "~/org/agenda/buy.org" "~/org/agenda/school.org" "~/org/agenda/home.org" "~/org/agenda/lab.org" "~/org/agenda/qbic.org")))
+    ("~/org/han_nearest_2010.org" "~/org/schey_div_2005.org" "/home/nick/org/agenda/appointments.org" "/home/nick/org/agenda/archive.org" "/home/nick/org/agenda/buy.org" "/home/nick/org/agenda/home.org" "/home/nick/org/agenda/lab.org" "/home/nick/org/agenda/school.org" "/home/nick/org/agenda/todo.org" "/home/nick/org/agenda/work.org")))
  '(org-catch-invisible-edits (quote error))
  '(org-format-latex-options
    (quote
@@ -78,7 +78,7 @@
 		 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(package-selected-packages
    (quote
-    (yasnippet-snippets doom-modeline openwith org-ref helm-bibtex org-roam-bibtex org-journal deft org-roam tron-legacy-theme ssh elfeed-org elfeed-goodies hyperbole use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit key-chord helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode)))
+    (org org-roam yasnippet-snippets doom-modeline openwith org-ref helm-bibtex org-roam-bibtex org-journal deft tron-legacy-theme ssh elfeed-org elfeed-goodies hyperbole use-package swiper smartparens rainbow-delimiters python-mode pdf-tools multiple-cursors magit key-chord helm git flycheck elpy ein dropdown-list drag-stuff auto-indent-mode)))
  '(py-shell-switch-buffers-on-execute nil)
  '(python-shell-buffer-name "ipython")
  '(send-mail-function (quote mailclient-send-it))
